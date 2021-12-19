@@ -1,0 +1,33 @@
+﻿@model ChainStoreSystem.Models.SubCategory
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<div style="margin-left:1%">
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SubCategoryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SubCategoryName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SubCategoryStatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SubCategoryStatus)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category_Fid)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category_Fid)
+        </dd>
+    </dl>
+</div>
+<div style="margin-left:1%">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>&nbsp;
+    <a asp-action="Index" class="btn btn-success">Back to</a>
+</div>

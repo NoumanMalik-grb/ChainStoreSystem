@@ -1,0 +1,47 @@
+﻿@model ChainStoreSystem.Models.DamagedProduct
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h3 style="text-align:center; color:red">Are you sure you want to delete this?</h3>
+<div style="margin-left:1%">
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date_Time)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date_Time)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Area_Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Area_Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product_Fid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product_Fid)
+        </dd>
+    </dl>
+    <form asp-action="Delete" style="margin-left:1%">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />&nbsp;
+        <a asp-action="Index" class="btn btn-success">Back to</a>
+    </form>
+</div>

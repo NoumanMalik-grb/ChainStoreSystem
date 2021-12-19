@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ChainStoreSystem.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<p>
+    <a asp-action="Create" class="btn btn-primary" style="margin-left:1%">Add Item</a>
+</p>
+<table class="table table-responsive col-9 table-hover" style="margin-left:1%">
+    <thead>
+        <tr style="background-color:skyblue;font-size:15px">
+            <th>
+              Name
+            </th>
+            <th>
+             Picture
+            </th>
+            <th>
+               Description
+            </th>
+            <th>
+               Sale Price
+            </th>
+            <th>
+               Purchase Price
+            </th>
+            <th>
+              Status
+            </th>
+            <th>
+               Discount
+            </th>
+            <th>
+               Add Date
+            </th>
+            <th>
+               Exp Date
+            </th>          
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Picture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Discription_Max)
+            </td>
+       
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Sale_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Purchase_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Add_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Exp_Date)
+            </td>
+           
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="fas fa-edit text-primary"></a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="fas fa-eye text-success"></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="fas fa-trash text-danger"></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

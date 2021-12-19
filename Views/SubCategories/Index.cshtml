@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ChainStoreSystem.Models.SubCategory>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<p>
+    <a asp-action="Create" class="btn btn-primary" style="margin-left:1%">Add Item</a>
+</p>
+<table class="table table-responsive col-9 table-hover" style="margin-left:1%">
+    <thead>
+        <tr style="background-color:skyblue;font-size:15px">
+            <th>
+                @Html.DisplayNameFor(model => model.SubCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubCategoryStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category_Fid)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategoryStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category_Fid)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="fas fa-edit text-primary"></a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="fas fa-eye text-success"></a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="fas fa-trash text-danger"></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

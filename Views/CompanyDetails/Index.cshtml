@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ChainStoreSystem.Models.CompanyDetail>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+
+<p>
+    <a asp-action="Create" class="btn btn-primary" style="margin-left:1%">Add Company</a>
+</p>
+<table class="table table-responsive col-9 table-hover" style="margin-left:1%">
+    <thead>
+        <tr style="background-color:skyblue;font-size:15px">
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyLogo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyLogo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="fas fa-edit text-primary"></a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="fas fa-eye text-success"></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="fas fa-trash text-danger"></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

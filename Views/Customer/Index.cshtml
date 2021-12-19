@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ChainStoreSystem.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered table-active table-condensed table-hover table-light" style="text-align:center" id="Mytable">
+    <thead>
+        <tr style="background-color:teal;color:white">
+            <th style="">
+                SrNo#
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Discription
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Discount
+            </th>
+            <th>
+                EXP DATE
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="background-color:cadetblue">
+                    @Html.DisplayFor(modelitem => item.Id)
+                </td>
+                <td style="background-color:darkslategray;color:white">
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td style="background-color:mediumturquoise; color: white">
+                    @Html.DisplayFor(modelItem => item.Product_Discription_Max)
+                </td>
+                <td  style="background-color:lightseagreen; color: white">
+                    @Html.DisplayFor(modelitem => item.Product_Sale_Price)
+                </td>
+                <td style="background-color:darkslategray;color:white">
+                    @Html.DisplayFor(modelItem => item.Product_Discount)
+                </td>
+                <td style="background-color:lightseagreen; color: white">
+                    @Html.DisplayFor(modelitem=>item.Product_Exp_Date)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

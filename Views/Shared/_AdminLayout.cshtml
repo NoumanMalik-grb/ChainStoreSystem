@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chain Store system</title>
+    <link rel="icon" type="image/png" sizes="20x20" href="~/Admin/favaicon.jpg">
+    <link href="~/Admin/assets/libs/flot/css/float-chart.css" rel="stylesheet">
+    <link href="~/Admin/dist/css/style.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <a class="navbar-brand" href="#">
+                        <span class="logo-text">
+                            <img src="~/Admin/Logo2.png" alt="homepage" class="light-logo" style="height:50px;width:150px;margin-left:10%" />
+                        </span>
+                    </a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav float-start me-auto">
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
+                               data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
+                        </li>
+
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark"
+                               href="javascript:void(0)"><i class="ti-search"></i></a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="pt-4">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-controller="Home" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a asp-controller="Categories" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
+                               aria-expanded="false">
+                                <i class="fas fa-caret-up"></i><span class="hide-menu">Category</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a asp-controller="SubCategories" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
+                               aria-expanded="false">
+                                <i class="fas fa-chess"></i><span class="hide-menu">SubCategory</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a asp-action="Index" asp-controller="Products" class="sidebar-link waves-effect waves-dark sidebar-link"
+                               aria-expanded="false">
+                                <i class="fas fa-procedures"></i><span class="hide-menu">Product</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a asp-controller="DamagedProducts" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
+                               aria-expanded="false">
+                                <i class="mdi mdi-blur-linear"></i><span class="hide-menu">DamagedProduct</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a asp-controller="Areas" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
+                               aria-expanded="false">
+                                <i class="fas fa-chart-area"></i><span class="hide-menu">Area</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-receipt"></i><span class="hide-menu">Setting</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a asp-controller="CompanyDetails" asp-action="Index" class="sidebar-link">
+                                        <i class="mdi mdi-note-outline"></i><span class="hide-menu">
+                                            CompanyDetail
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-controller="Accounts" asp-action="Index" class="sidebar-link">
+                                        <i class="fas fa-user"></i><span class="hide-menu">
+                                            Accounts
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            @RenderBody()
+            <footer class="footer text-center bottom-0">
+                All Rights Reserved by University of sialkot. Designed and Developed by <a href="#">Chain Store System</a>.
+            </footer>
+        </div>
+    </div>
+   
+     <script src="~/Admin/assets/libs/jquery/dist/jquery.min.js"></script>  
+    <script src="~/Admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/Admin/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="~/Admin/dist/js/waves.js"></script>
+    <script src="~/Admin/dist/js/sidebarmenu.js"></script>
+    <script src="~/Admin/dist/js/custom.min.js"></script>
+    <script src="~/Admin/assets/libs/flot/excanvas.js"></script>
+    <script src="~/Admin/assets/libs/flot/jquery.flot.js"></script>
+    <script src="~/Admin/assets/libs/flot/jquery.flot.pie.js"></script>
+    <script src="~/Admin/assets/libs/flot/jquery.flot.time.js"></script>
+    <script src="~/Admin/assets/libs/flot/jquery.flot.stack.js"></script>
+    <script src="~/Admin/assets/libs/flot/jquery.flot.crosshair.js"></script>
+    <script src="~/Admin/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="~/Admin/dist/js/pages/chart/chart-page-init.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#MyTable").dataTable();
+        }
+        );
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+
+
