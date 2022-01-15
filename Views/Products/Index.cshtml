@@ -17,9 +17,7 @@
             <th>
              Picture
             </th>
-            <th>
-               Description
-            </th>
+            
             <th>
                Sale Price
             </th>
@@ -33,11 +31,11 @@
                Discount
             </th>
             <th>
-               Add Date
+                Area name
             </th>
-            <th>
-               Exp Date
-            </th>          
+                <th>
+                 SubCateGory Name
+                </th>  
             <th>Action</th>
         </tr>
     </thead>
@@ -48,12 +46,8 @@
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Product_Picture)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product_Discription_Max)
-            </td>
-       
+                <img src="~/StoreImage/@item.Product_Picture"  style="height:100px; width:100px" />
+            </td>           
             <td>
                 @Html.DisplayFor(modelItem => item.Product_Sale_Price)
             </td>
@@ -65,14 +59,13 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Product_Discount)
+            </td>  
+            <td>
+                @Html.DisplayFor(modelitem=>item.Areas.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Product_Add_Date)
+                @Html.DisplayFor(modelitem=>item.SubCategorys.SubCategoryName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product_Exp_Date)
-            </td>
-           
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="fas fa-edit text-primary"></a>
                 <a asp-action="Details" asp-route-id="@item.Id" class="fas fa-eye text-success"></a>

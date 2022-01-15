@@ -1,4 +1,4 @@
-﻿@model ChainStoreSystem.Models.SubCategory
+﻿@model ChainStoreSystem.ViewModel.DropDownViewModel.CategoryDropDownViewModel 
 
 @{
     ViewData["Title"] = "Create";
@@ -7,11 +7,12 @@
 <br />
 <div class="row">
     <div class="col-md-9" style="margin-left:1%">
-        <form asp-action="Create">
+        <form asp-action="Create" asp-controller="SubCategories" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="SubCategoryName" class="control-label"></label>
                 <input asp-for="SubCategoryName" class="form-control" />
+                <span asp-validation-for="SubCategoryName" class="text-danger"></span>
                 <span asp-validation-for="SubCategoryName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -20,9 +21,12 @@
                 <span asp-validation-for="SubCategoryStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category_Fid" class="control-label"></label>
-                <input type="text" asp-for="Category_Fid" class="form-control" />
-                <span asp-validation-for="Category_Fid" class="text-danger"></span>
+                <label asp-for="CategoryId" class="control-label"></label>
+               <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.category">
+                   <option>
+                       Select category
+                   </option>
+               </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />&nbsp;<a asp-action="Index" class="btn btn-success">Back to</a>

@@ -149,10 +149,10 @@ namespace ChainStoreSystem.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AreaId")
+                    b.Property<int>("Area_FId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Area_Id")
+                    b.Property<int?>("AreasId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date_Time")
@@ -162,10 +162,10 @@ namespace ChainStoreSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("Product_Fid")
                         .HasColumnType("int");
 
-                    b.Property<int>("Product_Fid")
+                    b.Property<int?>("ProductsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
@@ -174,9 +174,9 @@ namespace ChainStoreSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AreaId");
+                    b.HasIndex("AreasId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductsId");
 
                     b.ToTable("damagedProducts");
                 });
@@ -215,15 +215,15 @@ namespace ChainStoreSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("Product_Fid")
                         .HasColumnType("int");
 
-                    b.Property<int>("Product_Fid")
+                    b.Property<int?>("ProductsId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductsId");
 
                     b.ToTable("orders");
                 });
@@ -238,19 +238,19 @@ namespace ChainStoreSystem.Migrations
                     b.Property<int?>("AreaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Area_Fid")
+                    b.Property<int>("Area_FId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("Order_FId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Order_Fid")
+                    b.Property<int?>("OrdersId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("Product_FId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Product_Fid")
+                    b.Property<int?>("ProductsId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Purchase_Price")
@@ -267,9 +267,9 @@ namespace ChainStoreSystem.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrdersId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductsId");
 
                     b.ToTable("orderDetails");
                 });
@@ -281,7 +281,7 @@ namespace ChainStoreSystem.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Area_Id")
+                    b.Property<int>("Area_FId")
                         .HasColumnType("int");
 
                     b.Property<int?>("AreasId")
@@ -321,17 +321,17 @@ namespace ChainStoreSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubCategoryId")
+                    b.Property<int>("SubCategory_Fid")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubCategory_Fid")
+                    b.Property<int?>("SubCategorysId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AreasId");
 
-                    b.HasIndex("SubCategoryId");
+                    b.HasIndex("SubCategorysId");
 
                     b.ToTable("products");
                 });
@@ -349,9 +349,6 @@ namespace ChainStoreSystem.Migrations
                     b.Property<int>("Category_Fid")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SubCategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -364,8 +361,6 @@ namespace ChainStoreSystem.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("Sub_Categorie");
                 });
 
@@ -373,11 +368,11 @@ namespace ChainStoreSystem.Migrations
                 {
                     b.HasOne("ChainStoreSystem.Models.Area", "Areas")
                         .WithMany()
-                        .HasForeignKey("AreaId");
+                        .HasForeignKey("AreasId");
 
                     b.HasOne("ChainStoreSystem.Models.Product", "Products")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductsId");
 
                     b.Navigation("Areas");
 
@@ -386,11 +381,11 @@ namespace ChainStoreSystem.Migrations
 
             modelBuilder.Entity("ChainStoreSystem.Models.Order", b =>
                 {
-                    b.HasOne("ChainStoreSystem.Models.Order", "Orders")
+                    b.HasOne("ChainStoreSystem.Models.Product", "Products")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductsId");
 
-                    b.Navigation("Orders");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ChainStoreSystem.Models.OrderDetail", b =>
@@ -401,11 +396,11 @@ namespace ChainStoreSystem.Migrations
 
                     b.HasOne("ChainStoreSystem.Models.Order", "Orders")
                         .WithMany()
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrdersId");
 
                     b.HasOne("ChainStoreSystem.Models.Product", "Products")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductsId");
 
                     b.Navigation("Area");
 
@@ -422,7 +417,7 @@ namespace ChainStoreSystem.Migrations
 
                     b.HasOne("ChainStoreSystem.Models.SubCategory", "SubCategorys")
                         .WithMany()
-                        .HasForeignKey("SubCategoryId");
+                        .HasForeignKey("SubCategorysId");
 
                     b.Navigation("Areas");
 
@@ -431,20 +426,11 @@ namespace ChainStoreSystem.Migrations
 
             modelBuilder.Entity("ChainStoreSystem.Models.SubCategory", b =>
                 {
-                    b.HasOne("ChainStoreSystem.Models.Category", "Categorys")
+                    b.HasOne("ChainStoreSystem.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("ChainStoreSystem.Models.Product", null)
-                        .WithMany("GetSubCategories")
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Categorys");
-                });
-
-            modelBuilder.Entity("ChainStoreSystem.Models.Product", b =>
-                {
-                    b.Navigation("GetSubCategories");
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

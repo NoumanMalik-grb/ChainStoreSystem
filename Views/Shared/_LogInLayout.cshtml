@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ChainStoreSystem</title>
+    <link href="~/LogInCss/LoGinStyleSheet.css" rel="stylesheet" />
+    <link href="~/LogInCss/fontawesome-iconpicker/css/fontawesome-iconpicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="background-color:GrayText">
+  
+    <div class="container">
+        <main role="main" class="pb-3 mt-5">
+            @RenderBody()
+        </main>
+    </div>
+     <footer class="border-top footer text-muted">
+        <div class="container" style="color:white">
+            &copy; @System.DateTime.Now.Year All Rights Reserved by University of sialkot. Designed and Developed by<a asp-action="#">Chain Store System</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/LogInCss/fontawesome-iconpicker/js/fontawesome-iconpicker.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

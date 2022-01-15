@@ -1,17 +1,13 @@
-﻿@model ChainStoreSystem.Models.Account
+﻿@model ChainStoreSystem.ViewModel.AccountViewModel.AccountDetailViewModel
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Create</h1>
-
-<h4>Account</h4>
-<hr />
+<br />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-9" style="margin-left:1%">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
@@ -45,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="User_Picture" class="control-label"></label>
-                <input asp-for="User_Picture" class="form-control" />
+                <input asp-for="User_Picture" />
                 <span asp-validation-for="User_Picture" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -55,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PassWord" class="control-label"></label>
-                <input asp-for="PassWord" class="form-control" />
+                <input type="password" asp-for="PassWord" class="form-control" />
                 <span asp-validation-for="PassWord" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -64,16 +60,11 @@
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />&nbsp; <a asp-action="Index" class="btn btn-success">Back to</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

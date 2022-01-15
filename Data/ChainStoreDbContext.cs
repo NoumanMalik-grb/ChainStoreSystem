@@ -13,11 +13,11 @@ namespace ChainStoreSystem.Data
         {
 
         }
-        public DbSet<Category> categories {get; set;}
+        public DbSet<Category> categories { get; set; }
         public DbSet<SubCategory> Sub_Categorie { get; set; }
         public DbSet<Product> products { get; set; }
         public DbSet<Area> areas { get; set; }
-        public  DbSet<DamagedProduct> damagedProducts { get; set; }
+        public DbSet<DamagedProduct> damagedProducts { get; set; }
         public DbSet<Account> accounts { get; set; }
         public DbSet<CompanyDetail> companyDetails { get; set; }
         public DbSet<Order> orders { get; set; }

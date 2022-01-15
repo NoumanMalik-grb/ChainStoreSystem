@@ -17,15 +17,14 @@ namespace ChainStoreSystem.Models
         public String Type { get; set; }
         public DateTime Date_Time { get; set; }
         //foreign key Area
-       [Display(Name ="Area")]
-       public virtual int Area_Id { get; set; }  
-       [ForeignKey("AreaId")]
-       public virtual Area Areas { get; set; }
-      //foreign key Product To Area
-      [Display(Name ="Product")]
-      public virtual int Product_Fid { get; set; }
-
-      [ForeignKey("ProductId")]
-      public virtual Product Products { get; set; }
+        [Display(Name = "Area")]
+        [ForeignKey("Area_FId")]
+        public int Area_FId { get; set; }
+        public virtual Area Areas { get; set; }
+        //foreign key Product To Area
+        [Display(Name = "Product")]
+        [ForeignKey("Product_Fid")]
+        public int Product_Fid { get; set; }
+        public virtual Product Products { get; set; }
     }
 }

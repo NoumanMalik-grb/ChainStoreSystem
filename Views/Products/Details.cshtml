@@ -1,4 +1,4 @@
-﻿@model ChainStoreSystem.Models.Product
+﻿@model ChainStoreSystem.ViewModel.ProductViewModel.ProductImageViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -68,16 +68,16 @@
             @Html.DisplayFor(model => model.Product_Exp_Date)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SubCategory_Fid)
+            @Html.DisplayNameFor(model => model.Sub_categoryId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SubCategory_Fid)
+            @Html.DisplayFor(model => model.Sub_categoryId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Area_Id)
+            @Html.DisplayNameFor(model => model.AreaId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Area_Id)
+            @Html.DisplayFor(model => model.AreaId)
         </dd>
     </dl>
 </div>

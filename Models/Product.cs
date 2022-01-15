@@ -31,13 +31,13 @@ namespace ChainStoreSystem.Models
         public DateTime Product_Exp_Date { get; set; }
         //foreign key SubCategry
         [Display(Name ="SubCategory")]
-        public virtual int SubCategory_Fid { get; set; }        
-        [ForeignKey("SubCategoryId")]
+        [ForeignKey("SubCategory_FId")]
+        public int SubCategory_Fid { get; set; }        
         public virtual SubCategory SubCategorys { get; set; }
         //foreign key Area
         [Display(Name = "Area")]
-        public virtual int Area_Id { get; set; }
-        //[ForeignKey("AreaId")]
+        [ForeignKey("Area_FId")]
+        public int Area_FId { get; set; }
         public virtual Area Areas { get; set; }
         
     }

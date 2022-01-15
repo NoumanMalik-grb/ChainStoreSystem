@@ -19,21 +19,18 @@ namespace ChainStoreSystem.Models
         public String Quantity { get; set; }
         //foreign key Prodcut
         [Display(Name ="Product")]
-        public virtual int Product_Fid { get; set; }
-
-        [ForeignKey("ProductId")]
+        [ForeignKey("Product_FId")]
+        public  int Product_FId { get; set; }       
         public virtual Product Products { get; set; }
         //foreign key Area
         [Display(Name = "Area")]
-        public virtual int Area_Fid { get; set; }
-
-        [ForeignKey("AreaId")]
+        [ForeignKey("Area_FId")]
+        public  int Area_FId { get; set; }
         public virtual Area Area { get; set; }
         //foreign key Order
         [Display(Name = "Order")]
-        public virtual int Order_Fid { get; set; }
-
-        [ForeignKey("OrderId")]
+        [ForeignKey("Order_FId")]
+        public  int Order_FId { get; set; }
         public virtual Order Orders { get; set; }
     }
 }

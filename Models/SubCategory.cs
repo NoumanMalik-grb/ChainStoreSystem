@@ -17,8 +17,8 @@ namespace ChainStoreSystem.Models
         public String SubCategoryStatus { get; set; }
         //foreign key
         [Display(Name ="Category")]
-        public virtual int Category_Fid { get; set; }
-        [ForeignKey("CategoryId")]
-        public virtual Category Categorys { get; set; }
+        [ForeignKey("Category_Fid")]
+        public int Category_Fid { get; set; }
+        public virtual Category Category  { get; set; }
     }
 }

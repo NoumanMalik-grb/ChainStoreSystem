@@ -1,4 +1,4 @@
-﻿@model ChainStoreSystem.Models.Product
+﻿@model ChainStoreSystem.ViewModel.ProductViewModel.ProductImageViewModel 
 
 @{
     ViewData["Title"] = "Create";
@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-9" style="margin-left:1%">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
@@ -60,14 +60,18 @@
                 <span asp-validation-for="Product_Exp_Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SubCategory_Fid" class="control-label"></label>
-                <input asp-for="SubCategory_Fid" class="form-control" />
-                <span asp-validation-for="SubCategory_Fid" class="text-danger"></span>
+                <label asp-for="Sub_categoryId" class="control-label"></label>
+               <select asp-for="Sub_categoryId" class="form-control" asp-items=" ViewBag.SubCategory">
+                   --Select SubCategory
+               </select>
+                <span asp-validation-for="Sub_categoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Area_Id" class="control-label"></label>
-                <input asp-for="Area_Id" class="form-control" />
-                <span asp-validation-for="Area_Id" class="text-danger"></span>
+                <label asp-for="AreaId" class="control-label"></label>
+                <select asp-for="AreaId" class="form-control" asp-items="ViewBag.Area" >
+                    ---Slect Area---
+                </select>
+                <span asp-validation-for="AreaId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />&nbsp; <a asp-action="Index" class="btn btn-success">Back to</a>

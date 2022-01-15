@@ -7,18 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ChainStoreSystem.Data;
 using ChainStoreSystem.Models;
+using ChainStoreSystem.ViewModel;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using ChainStoreSystem.ViewModel.AccountViewModel;
 
 namespace ChainStoreSystem.Controllers
 {
     public class AccountsController : Controller
     {
         private readonly ChainStoreDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AccountsController(ChainStoreDbContext context)
+        public AccountsController(ChainStoreDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
-
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
@@ -35,12 +40,27 @@ namespace ChainStoreSystem.Controllers
 
             var account = await _context.accounts
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var accountdt = new AccountDetailViewModel()
+            {
+                Id = account.Id,
+                UserName = account.UserName,
+                UserEmail = account.UserEmail,
+                UserMobile = account.UserMobile,
+                Address1 = account.Address1,
+                Address2 = account.Address2,
+                CNIC = account.CNIC,
+                Date_Time = account.Date_Time,
+                PassWord = account.PassWord,
+                Type = account.PassWord,
+                ExistingImage = account.User_Picture
+            };
+
             if (account == null)
             {
                 return NotFound();
             }
 
-            return View(account);
+            return View(accountdt);
         }
 
         // GET: Accounts/Create
@@ -49,20 +69,27 @@ namespace ChainStoreSystem.Controllers
             return View();
         }
 
-        // POST: Accounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,UserEmail,UserMobile,Address1,Address2,CNIC,User_Picture,Date_Time,PassWord,Type")] Account account)
+        public async Task<IActionResult> Create(AccountDetailViewModel model)
         {
-            if (ModelState.IsValid)
+            string UniqueFileName = UploadFile(model);
+            var account = new Account()
             {
-                _context.Add(account);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(account);
+                UserName = model.UserName,
+                UserEmail = model.UserEmail,
+                UserMobile = model.UserMobile,
+                Address1 = model.Address1,
+                Address2 = model.Address2,
+                CNIC = model.CNIC,
+                Date_Time = model.Date_Time,
+                PassWord = model.PassWord,
+                Type = model.Type,
+                User_Picture = UniqueFileName
+            };
+            _context.Add(account);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Accounts/Edit/5
@@ -74,46 +101,62 @@ namespace ChainStoreSystem.Controllers
             }
 
             var account = await _context.accounts.FindAsync(id);
+            var accountDtView = new AccountDetailViewModel()
+            {
+                Id = account.Id,
+                UserName = account.UserName,
+                UserEmail = account.UserEmail,
+                UserMobile = account.UserMobile,
+                Address1 = account.Address1,
+                Address2 = account.Address2,
+                CNIC = account.CNIC,
+                Date_Time = account.Date_Time,
+                PassWord = account.PassWord,
+                Type = account.Type,
+                ExistingImage = account.User_Picture
+            };
             if (account == null)
             {
                 return NotFound();
             }
-            return View(account);
+            return View(accountDtView);
         }
 
-        // POST: Accounts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,UserEmail,UserMobile,Address1,Address2,CNIC,User_Picture,Date_Time,PassWord,Type")] Account account)
+        public async Task<IActionResult> Edit(int id, AccountDetailViewModel model)
         {
-            if (id != account.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                var accountDt = await _context.accounts.FindAsync(model.Id);
+
+                accountDt.UserName = model.UserName;
+                accountDt.UserEmail = model.UserEmail;
+                accountDt.Address1 = model.Address1;
+                accountDt.Address2 = model.Address2;
+                accountDt.CNIC = model.CNIC;
+                accountDt.Date_Time = model.Date_Time;
+                accountDt.PassWord = model.PassWord;
+                accountDt.Type = model.Type;
+                if (model.User_Picture != null)
                 {
-                    _context.Update(account);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AccountExists(account.Id))
+                    if (model.ExistingImage != null)
                     {
-                        return NotFound();
+                        string filepath = Path.Combine(_webHostEnvironment.WebRootPath, "StoreImage", model.ExistingImage);
+                        System.IO.File.Delete(filepath);
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    accountDt.User_Picture = UploadFile(model);
                 }
+                _context.Update(accountDt);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(account);
+            return View(model);
         }
 
         // GET: Accounts/Delete/5
@@ -126,12 +169,27 @@ namespace ChainStoreSystem.Controllers
 
             var account = await _context.accounts
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            var accountdt = new AccountDetailViewModel()
+            {
+                Id = account.Id,
+                UserName = account.UserName,
+                UserEmail = account.UserEmail,
+                UserMobile = account.UserMobile,
+                Address1 = account.Address1,
+                Address2 = account.Address2,
+                CNIC = account.CNIC,
+                Date_Time = account.Date_Time,
+                PassWord = account.PassWord,
+                Type = account.PassWord,
+                ExistingImage = account.User_Picture
+            };
             if (account == null)
             {
                 return NotFound();
             }
 
-            return View(account);
+            return View(accountdt);
         }
 
         // POST: Accounts/Delete/5
@@ -140,14 +198,40 @@ namespace ChainStoreSystem.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var account = await _context.accounts.FindAsync(id);
+            var CurrentImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\StoreImage", account.User_Picture);
             _context.accounts.Remove(account);
-            await _context.SaveChangesAsync();
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                if (System.IO.File.Exists(CurrentImage))
+                {
+                    System.IO.File.Delete(CurrentImage);
+                }
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool AccountExists(int id)
         {
             return _context.accounts.Any(e => e.Id == id);
+        }
+        //private funtion for upload image
+        private string UploadFile(AccountDetailViewModel model)
+        {
+            string UniqueFileName = null;
+            if (model.User_Picture != null)
+            {
+                var UploadImage = Path.Combine
+               (_webHostEnvironment.WebRootPath, "StoreImage");
+                UniqueFileName = Guid.NewGuid().ToString() 
+                + "-" + model.User_Picture.FileName;
+                string filePath = Path.Combine(UploadImage, UniqueFileName);
+                using (var filestream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.User_Picture.CopyTo(filestream);
+                }
+            }
+            return UniqueFileName;
         }
     }
 }

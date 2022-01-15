@@ -27,9 +27,9 @@ namespace ChainStoreSystem.Models
         public String Area { get; set; }
         //foreign key
         [Display(Name ="Product")]
-        public virtual int Product_Fid { get; set; }
-        [ForeignKey("ProductId")]
-        public virtual Order Orders { get; set; }
+        [ForeignKey("Product_FId")]
+        public  int Product_Fid { get; set; }
+        public virtual Product Products { get; set; }
 
     }
 }

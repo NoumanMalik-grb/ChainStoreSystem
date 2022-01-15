@@ -1,4 +1,4 @@
-﻿@model ChainStoreSystem.Models.Account
+﻿@model ChainStoreSystem.ViewModel.AccountViewModel.AccountDetailViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,7 +7,7 @@
 <br />
 <div class="row">
     <div  class="col-md-9" style="margin-left:1%">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -40,10 +40,11 @@
                 <input asp-for="CNIC" class="form-control" />
                 <span asp-validation-for="CNIC" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="User_Picture" class="control-label"></label>
                 <input asp-for="User_Picture" class="form-control" />
-                <span asp-validation-for="User_Picture" class="text-danger"></span>
+                 <input type="hidden" asp-for="ExistingImage"/>
+               <img src="~/StoreImage/@Model.ExistingImage" alt="Alternate Text" style="height:100px;width:100px" />
             </div>
             <div class="form-group">
                 <label asp-for="Date_Time" class="control-label"></label>
@@ -61,6 +62,7 @@
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
+               
                 <input type="submit" value="Save" class="btn btn-primary" />&nbsp; <a asp-action="Index" class="btn btn-success">Back To</a>
             </div>
            

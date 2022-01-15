@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - ChainStoreSystem</title>
     <link href="~/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
     <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -13,9 +14,12 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: seagreen">
             <div class="container">
-                <marquee>
+                <marquee direction="Right" width="900">
                     <h3 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color:antiquewhite">Thank You Dear Customer For Visiting Our Store:Cell(+92345667790)</h3>
                 </marquee>
+                <div>
+                    <a asp-action="LogIn" asp-controller="LogIn" class="" style="text-decoration:none;color:white">User</a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,7 +35,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container" style="color:white">
             &copy; @System.DateTime.Now.Year All Rights Reserved by University of sialkot. Designed and Developed by<a asp-action="#">Chain Store System</a>
         </div>
     </footer>

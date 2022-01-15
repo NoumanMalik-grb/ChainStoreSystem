@@ -1,0 +1,43 @@
+﻿@model ChainStoreSystem.Models.Account
+@{
+    ViewData["Title"] = "LogIn";
+    Layout = "~/Views/Shared/_LogInLayout.cshtml";
+}
+<br />
+<div class="container-fluid">
+    <div class="card mx-auto" style="width:500px;background-color:white">
+    <div class="card-body" style="background-color:cadetblue">
+        <br />
+        <div style="height:50px;background-color:cornflowerblue">
+            <i class="fas fa-cart-plus fa-2x" style="margin-left:40%;margin-top:2%"></i>
+           <a href="#" style="color:wheat;text-decoration:none; font-size:30px">
+               <b>C</b>
+               SS
+           </a>
+        </div>
+        <p style="text-align:center">SignIn Here</p>
+        <form>
+            <label><b>Eamil</b></label>
+            <div class="input-group mb-3">
+                <input type="email" class="form-control" name="UserName" placeholder="Enter Your Email" style="background-color:aliceblue">
+                <div class="input-group-append">
+                    <span class="input-group-text fas fa-envelope" style="color:forestgreen"></span>
+                </div>
+            </div>
+            <label><b>UserPassword</b></label>
+            <div class="input-group mb-3">
+                <input type="password" class="form-control" placeholder="Enter Your Password" style="background-color:aliceblue">
+                <div class="input-group-append">
+                    <span class="input-group-text fas fa-eye" style="color:forestgreen"></span>
+                </div>
+            </div>
+            <input type="checkbox" class="custom-checkbox" /><b>Remember Me?</b>
+
+            <br />
+            <a href="#">Forgot Password</a><br /><br />
+            <input type="submit" value="Login" class="btn btn-primary btn-flickr" style="float-Right" />
+        </form>
+    </div>
+    </div>
+</div>
+
