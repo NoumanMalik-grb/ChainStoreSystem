@@ -8,8 +8,9 @@
     <link rel="icon" type="image/png" sizes="20x20" href="~/Admin/favaicon.jpg">
     <link href="~/Admin/assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <link href="~/Admin/dist/css/style.min.css" rel="stylesheet">
+    <link href="~/Admin/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 </head>
-<body>
+<body> 
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
@@ -61,19 +62,19 @@
                         <li class="sidebar-item">
                             <a asp-controller="Categories" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
                                aria-expanded="false">
-                                <i class="fas fa-caret-up"></i><span class="hide-menu">Category</span>
+                                <i class="fa fa-shekel-sign"></i><span >Category</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a asp-controller="SubCategories" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
                                aria-expanded="false">
-                                <i class="fas fa-chess"></i><span class="hide-menu">SubCategory</span>
+                                <i class="fa fa-stop-circle"></i><span>SubCategory</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a asp-action="Index" asp-controller="Products" class="sidebar-link waves-effect waves-dark sidebar-link"
                                aria-expanded="false">
-                                <i class="fas fa-procedures"></i><span class="hide-menu">Product</span>
+                                <i class="fas fa-parachute-box"></i><span>Product</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -115,15 +116,17 @@
                 </nav>
             </div>
         </aside>
+      
         <div class="page-wrapper">
+           
             @RenderBody()
             <footer class="footer text-center bottom-0">
-                All Rights Reserved by University of sialkot. Designed and Developed by <a href="#">Chain Store System</a>.
+                All Rights Reserved by University of sialkot. Designed and Developed by <a href="#">Chain Store System</a>
             </footer>
         </div>
     </div>
-   
-     <script src="~/Admin/assets/libs/jquery/dist/jquery.min.js"></script>  
+
+    <script src="~/Admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="~/Admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="~/Admin/assets/extra-libs/sparkline/sparkline.js"></script>

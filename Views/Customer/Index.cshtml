@@ -4,10 +4,37 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <style>
+        .btn-purple {
+            color: #fff;
+            background-color: #6f42c1;
+            border-color: #643ab0;
+        }
 
-<table class="table table-bordered table-active table-condensed table-hover table-light" style="text-align:center" id="Mytable">
+        .modal-body div {
+            float: left;
+            width: 100%
+        }
+
+            .modal-body div p {
+                float: left;
+                width: 20%;
+                font-weight: 600;
+            }
+
+            .modal-body div span {
+                float: left;
+                width: 80%
+            }
+    </style>
+</head>
+<br />
+<table class="table table-borderless table-hover display" width="100%" id="Mytable" style="background-color:darkcyan">
     <thead>
-        <tr style="background-color:teal;color:white">
+        <tr>
             <th style="">
                 SrNo#
             </th>
@@ -20,6 +47,7 @@
             <th>
                 Price
             </th>
+            <th>Picture</th>
             <th>
                 Discount
             </th>
@@ -32,26 +60,69 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td style="background-color:cadetblue">
+                <td>
                     @Html.DisplayFor(modelitem => item.Id)
                 </td>
-                <td style="background-color:darkslategray;color:white">
+                <td>
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
-                <td style="background-color:mediumturquoise; color: white">
+                <td>
                     @Html.DisplayFor(modelItem => item.Product_Discription_Max)
                 </td>
-                <td style="background-color:lightseagreen; color: white">
+                <td>
                     @Html.DisplayFor(modelitem => item.Product_Sale_Price)
                 </td>
-                <td style="background-color:darkslategray;color:white">
+                <td>
+                    <img src="~/StoreImage/@item.Product_Picture" style="height:100px; width100px" />
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Product_Discount)
                 </td>
-                <td style="background-color:lightseagreen; color: white">
+                <td>
                     @Html.DisplayFor(modelitem => item.Product_Exp_Date)
                 </td>
-              
             </tr>
         }
     </tbody>
 </table>
+
+<!--Bootstrap model Start-->
+<div>
+    <form asp-action="AddToCart" asp-controller="Cart" method="post">
+        <div class="modal fade" id="mymodal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Product Detail</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="id"><p>Id: </p><span></span></div>
+                        <div class="name"><p>Name:</p><span></span></div>
+                        <div class="description"><p>Description:</p><span></span></div>
+                        <div class="price"><p>Price:</p><span></span></div>
+                        @*<div class="picture"><p>Picture</p><span></span></div>*@
+                      <div>
+                          <img id="picture" src="~/StoreImage/"/><p>Picture</p><span></span>
+                      </div>
+                        <div class="discount"><p>Discount</p><span></span></div>
+                        <div class="ExpDate"><p>ExpDate</p><span></span></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default ">Apply!</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </form>
+</div>
+
+<!-- /.modal -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+
