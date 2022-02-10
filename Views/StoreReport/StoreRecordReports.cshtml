@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "StoreRecordReports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">StoreRecordReports</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("SaleReport", "Reports", FormMethod.Post))
+{
+    <table width="100%" border="1">
+        <tr>
+
+            <td>Date From:</td>
+            <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
+
+            <td>Date To:</td>
+
+            <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
+
+        </tr>
+
+        <tr>
+            <td style="padding-top:10px"><button class="btn  btn-block" style="background-color:#ff6666; color:white">Generate Report</button></td>
+        </tr>
+    </table>
+}
+<br />
+<table border="1" class="table table-responsive table-hover">
+    <tr style="background-color:#ff6666; color:white">
+        <th>Sr #</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Sale Price</th>
+        <th>Purchase Price </th>
+        <th>Action</th>
+    </tr>
+
+
+    <tr>
+        <td>Sr #</td>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Status</td>
+        <td>Sale Price</td>
+        <td>Purchase Price</td>
+
+
+        <td><a href="#" class="btn btn-outline-primary">Invoice</a></td>
+    </tr>
+
+</table>

@@ -21,5 +21,11 @@ namespace ChainStoreSystem.Controllers
             var pro = await _context.products.ToListAsync();
             return View(pro);
         }
+        [HttpPost]
+        public IActionResult cus(int id)
+        {
+
+            return View(nameof(Index));
+        }
     }
 }

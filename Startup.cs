@@ -25,8 +25,13 @@ namespace ChainStoreSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<ChainStoreDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("ChainStoreSystem")));
+            services.AddDbContextPool<ChainStoreDbContext>(option => 
+            option.UseSqlServer(Configuration.
+            GetConnectionString("ChainStoreSystem")));
             services.AddControllersWithViews();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +49,7 @@ namespace ChainStoreSystem
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -53,7 +58,7 @@ namespace ChainStoreSystem
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Customer}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

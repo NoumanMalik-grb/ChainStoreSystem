@@ -10,17 +10,34 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body style="background-color:GrayText">
-  
+<body style="background-color:silver">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3" style="background-color:cadetblue">
+            <div class="container">
+                <img src="~/Admin/Logo2.png" alt="homepage" class="light-logo" style="height:50px;width:150px" />
+                <marquee direction="left" width="80%">
+                    <h5 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color:darkred">Thank You Dear Customer For Visiting Our Store:Cell(+92345667790)</h5>
+                </marquee>
+                <div>
+                    <a asp-action="LogIn" asp-controller="LogIn" class="fas fa-user" style="color:green"></a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
     <div class="container">
         <main role="main" class="pb-3 mt-5">
             @RenderBody()
         </main>
     </div>
-     <footer class="border-top footer text-muted">
-        <div class="container" style="color:white">
-            &copy; @System.DateTime.Now.Year All Rights Reserved by University of sialkot. Designed and Developed by<a asp-action="#">Chain Store System</a>
-        </div>
+    <footer class="footer text-left bottom-0" style="margin-left:8%">
+        &copy; @System.DateTime.Now.Year
+        All Rights Reserved by University of sialkot. Designed and Developed by <a href="#">Chain Store System</a>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/LogInCss/fontawesome-iconpicker/js/fontawesome-iconpicker.js"></script>

@@ -8,6 +8,6 @@ namespace ChainStoreSystem.ViewModel.ProductViewModel
     public class EditImageProductViewModel: UploadProductImageViewModel
     {
         public int Id { get; set; }
-        public String ExistingImage { get; set; }
+        public string ExistingImage { get; set; }
     }
 }

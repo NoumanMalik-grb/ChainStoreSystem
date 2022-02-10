@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace ChainStoreSystem.ViewModel.DropDownViewModel
 {
     public class CategoryDropDownViewModel
-    {
+    {        
+        public  int Id { get; set; }
         [Required]
         public String SubCategoryName { get; set; }
         [Required]

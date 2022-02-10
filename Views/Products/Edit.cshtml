@@ -4,79 +4,158 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<div class="row">
-    <div  class="col-md-9" style="margin-left:1%">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Picture" class="control-label"></label>
-                <input asp-for="Product_Picture" class="form-control" />
-                <input type="hidden" asp-for="ExistingImage"/>
+<br />
+
+<table class="table">
+    @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(pro => pro.Id)
+        <tr>
+            <td>
+                <label>
+                    Product Name
+                </label>
+            </td>
+            <td>
+                <label>
+                    Picture
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.ProductName, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Product_Picture, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.ExistingImage, new { HtmlAttributes = new { @class = "form-control" } })
                 <img src="~/StoreImage/@Model.ExistingImage" style="height:100px;width:100px" alt="Alternate Text" />
-                <span asp-validation-for="Product_Picture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Discription_Max" class="control-label"></label>
-                <input asp-for="Product_Discription_Max" class="form-control" />
-                <span asp-validation-for="Product_Discription_Max" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Discription_Min" class="control-label"></label>
-                <input asp-for="Product_Discription_Min" class="form-control" />
-                <span asp-validation-for="Product_Discription_Min" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Sale_Price" class="control-label"></label>
-                <input asp-for="Product_Sale_Price" class="form-control" />
-                <span asp-validation-for="Product_Sale_Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Purchase_Price" class="control-label"></label>
-                <input asp-for="Product_Purchase_Price" class="form-control" />
-                <span asp-validation-for="Product_Purchase_Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Status" class="control-label"></label>
-                <input asp-for="Product_Status" class="form-control" />
-                <span asp-validation-for="Product_Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Discount" class="control-label"></label>
-                <input asp-for="Product_Discount" class="form-control" />
-                <span asp-validation-for="Product_Discount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Add_Date" class="control-label"></label>
-                <input asp-for="Product_Add_Date" class="form-control" />
-                <span asp-validation-for="Product_Add_Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Exp_Date" class="control-label"></label>
-                <input asp-for="Product_Exp_Date" class="form-control" />
-                <span asp-validation-for="Product_Exp_Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sub_categoryId" class="control-label"></label>
-                <input asp-for="Sub_categoryId" class="form-control" />
-                <span asp-validation-for="Sub_categoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AreaId" class="control-label"></label>
-                <input asp-for="AreaId" class="form-control" />
-                <span asp-validation-for="AreaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />&nbsp; <a asp-action="Index" class="btn btn-success">Back To</a>
-            </div>
-        </form>
-    </div>
-</div>
+                @Html.ValidationMessageFor(model => model.Product_Picture, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Description Max
+                </label>
+            </td>
+            <td>
+                <label>
+                    Description Min
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(pro => pro.Product_Discription_Max, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Discription_Max, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(pro => pro.Product_Discription_Min, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Discription_Min, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Sale Price
+                </label>
+            </td>
+            <td>
+                <label>
+                    purchse Price
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(pro => pro.Product_Sale_Price, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Sale_Price, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(pro => pro.Product_Purchase_Price, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Purchase_Price, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Status
+                </label>
+            </td>
+            <td>
+                <label>
+                    Discount
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(pro => pro.Product_Status, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Status, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(pro => pro.Product_Discount, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Discount, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Add Date
+                </label>
+            </td>
+            <td>
+                <label>
+                    Expire Date
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(pro => pro.Product_Add_Date, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Add_Date, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(pro => pro.Product_Exp_Date, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Exp_Date, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                   Subcategory Name
+                </label>
+            </td>
+            <td>
+                <label>
+                    Arae Name
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DropDownListFor(item => item.Sub_categoryId, (IEnumerable<SelectListItem>)ViewBag.SubCategory,"--Select SubCategory",  new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.DropDownListFor(item => item.AreaId, (IEnumerable<SelectListItem>)ViewBag.Area, "--Select Area", new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />&nbsp;<a href="@Url.Action("Index","Products")" class="btn btn-success ">&nbsp;Back To</a>
+                </div>
+            </td>
+
+        </tr>
+    }
+</table>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

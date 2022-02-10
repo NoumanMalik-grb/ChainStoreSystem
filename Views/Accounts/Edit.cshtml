@@ -4,71 +4,148 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<br />
-<div class="row">
-    <div  class="col-md-9" style="margin-left:1%">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Edit/Account</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
             </div>
-            <div class="form-group">
-                <label asp-for="UserEmail" class="control-label"></label>
-                <input asp-for="UserEmail" class="form-control" />
-                <span asp-validation-for="UserEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserMobile" class="control-label"></label>
-                <input asp-for="UserMobile" class="form-control" />
-                <span asp-validation-for="UserMobile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address1" class="control-label"></label>
-                <input asp-for="Address1" class="form-control" />
-                <span asp-validation-for="Address1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address2" class="control-label"></label>
-                <input asp-for="Address2" class="form-control" />
-                <span asp-validation-for="Address2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CNIC" class="control-label"></label>
-                <input asp-for="CNIC" class="form-control" />
-                <span asp-validation-for="CNIC" class="text-danger"></span>
-            </div>
-            <div>
-                <label asp-for="User_Picture" class="control-label"></label>
-                <input asp-for="User_Picture" class="form-control" />
-                 <input type="hidden" asp-for="ExistingImage"/>
-               <img src="~/StoreImage/@Model.ExistingImage" alt="Alternate Text" style="height:100px;width:100px" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Date_Time" class="control-label"></label>
-                <input asp-for="Date_Time" class="form-control" />
-                <span asp-validation-for="Date_Time" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PassWord" class="control-label"></label>
-                <input asp-for="PassWord" class="form-control" />
-                <span asp-validation-for="PassWord" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-               
-                <input type="submit" value="Save" class="btn btn-primary" />&nbsp; <a asp-action="Index" class="btn btn-success">Back To</a>
-            </div>
-           
-        </form>
+        </div>
     </div>
 </div>
+<br />
+<table class="table">
+    @using (Html.BeginForm("Edit", "Accounts", FormMethod.Post, new { enctype="multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            <td>
+                <label>
+                    Name
+                </label>
+            </td>
+            <td>
+                <label>
+                    Email
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.UserName, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.UserEmail, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserEmail, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            <td>
+                <label>
+                    Mobile
+                </label>
+            </td>
+            <td>
+                <label>
+                    Address1
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.UserMobile, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserMobile, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Address1, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            <td>
+                <label>
+                    Address2
+                </label>
+            </td>
+            <td>
+                <label>
+                    CNIC
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.Address2, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CNIC, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            <td>
+                <label>
+                    Picture
+                </label>
+            </td>
+            <td>
+                <label>
+                    DateTime
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.User_Picture, new { HtmlAttributes = new { @class = "form-control" } })
+                <input type="hidden" asp-for="ExistingImage" />
+                <img src="~/StoreImage/@Model.ExistingImage" alt="Alternate Text" style="height:100px;width:100px" />
+                @Html.ValidationMessageFor(model => model.User_Picture, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.UserEmail, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserEmail, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            <td>
+                <label>
+                    Password
+                </label>
+            </td>
+            <td>
+                <label>
+                    Type
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.PassWord, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Type, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Save" class="btn btn-primary" />&nbsp;<a href="@Url.Action("Index","Accounts") " class="btn btn-success">Back</a>
+            </td>
+        </tr>
+    }
+</table>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

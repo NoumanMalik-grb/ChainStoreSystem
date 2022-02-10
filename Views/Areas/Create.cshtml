@@ -4,27 +4,52 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<br />
-<div class="row">
-    <div class="col-md-9" style="margin-left:1%">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Create/Area</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />&nbsp; <a asp-action="Index" class="btn btn-success">Back to</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+<br />
+<table class=" table table-bordered">
+    @using (Html.BeginForm("Create", "Areas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Name</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Address</th>
+            
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.Name, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Address, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </td>
+            
+        </tr>       
+        <tr>
+            <td>
+                <input type="submit" value="Create" class="btn btn-primary" />
+                &nbsp; <a href="@Url.Action("Index","Areas")" class="btn btn-success fas fa-backward fa-1x">Back To</a>
+            </td>
+        </tr>
+    }
+</table>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

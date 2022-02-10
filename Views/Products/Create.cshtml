@@ -4,81 +4,106 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<br />
+<table class=" table table-bordered">
+    @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Name</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Picture</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Description Max</th>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.ProductName, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Product_Picture, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Picture, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Product_Discription_Max, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Discription_Max, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Description Min</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Sale Price</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Purchase Price</th>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.Product_Discription_Min, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Discription_Min, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Product_Sale_Price, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Sale_Price, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Product_Purchase_Price, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Purchase_Price, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Status</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Discount</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Add Date</th>
+        </tr>
+        <tr>
 
-<div class="row">
-    <div class="col-md-9" style="margin-left:1%">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Picture" class="control-label"></label>
-                <input asp-for="Product_Picture" class="form-control" />
-                <span asp-validation-for="Product_Picture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Discription_Max" class="control-label"></label>
-                <input asp-for="Product_Discription_Max" class="form-control" />
-                <span asp-validation-for="Product_Discription_Max" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Discription_Min" class="control-label"></label>
-                <input asp-for="Product_Discription_Min" class="form-control" />
-                <span asp-validation-for="Product_Discription_Min" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Sale_Price" class="control-label"></label>
-                <input asp-for="Product_Sale_Price" class="form-control" />
-                <span asp-validation-for="Product_Sale_Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Purchase_Price" class="control-label"></label>
-                <input asp-for="Product_Purchase_Price" class="form-control" />
-                <span asp-validation-for="Product_Purchase_Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Status" class="control-label"></label>
-                <input asp-for="Product_Status" class="form-control" />
-                <span asp-validation-for="Product_Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Discount" class="control-label"></label>
-                <input asp-for="Product_Discount" class="form-control" />
-                <span asp-validation-for="Product_Discount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Add_Date" class="control-label"></label>
-                <input asp-for="Product_Add_Date" class="form-control" />
-                <span asp-validation-for="Product_Add_Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Exp_Date" class="control-label"></label>
-                <input asp-for="Product_Exp_Date" class="form-control" />
-                <span asp-validation-for="Product_Exp_Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sub_categoryId" class="control-label"></label>
-               <select asp-for="Sub_categoryId" class="form-control" asp-items=" ViewBag.SubCategory">
-                   --Select SubCategory
-               </select>
-                <span asp-validation-for="Sub_categoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AreaId" class="control-label"></label>
-                <select asp-for="AreaId" class="form-control" asp-items="ViewBag.Area" >
-                    ---Slect Area---
-                </select>
-                <span asp-validation-for="AreaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />&nbsp; <a asp-action="Index" class="btn btn-success">Back to</a>
-            </div>
-        </form>
-    </div>
-</div>
+            <td>
+                @Html.EditorFor(model => model.Product_Status, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Status, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Product_Discount, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Discount, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Product_Add_Date, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Add_Date, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Exp Date</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>SubCategory Name</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Area Name</th>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.Product_Exp_Date, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product_Exp_Date, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.DropDownListFor(item => item.Sub_categoryId, (IEnumerable<SelectListItem>)ViewBag.SubCategory, "--Select SubCategory--", new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.DropDownListFor(item => item.AreaId, (IEnumerable<SelectListItem>)ViewBag.Area, "--Select Area--", new { @class = "form-control" })
+            </td>
+        </tr>        
+        <tr>
+            <td>
+                <input type="submit" value="Create" class="btn btn-primary" />
+                &nbsp; <a href="@Url.Action("Index","Products")" class="btn btn-success fas fa-backward fa-1x">Back To</a>
+            </td>
+        </tr>
+    }
+</table>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

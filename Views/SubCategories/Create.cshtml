@@ -4,36 +4,59 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<br />
-<div class="row">
-    <div class="col-md-9" style="margin-left:1%">
-        <form asp-action="Create" asp-controller="SubCategories" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SubCategoryName" class="control-label"></label>
-                <input asp-for="SubCategoryName" class="form-control" />
-                <span asp-validation-for="SubCategoryName" class="text-danger"></span>
-                <span asp-validation-for="SubCategoryName" class="text-danger"></span>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Create/SubCategory</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
             </div>
-            <div class="form-group">
-                <label asp-for="SubCategoryStatus" class="control-label"></label>
-                <input asp-for="SubCategoryStatus" class="form-control" />
-                <span asp-validation-for="SubCategoryStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-               <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.category">
-                   <option>
-                       Select category
-                   </option>
-               </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />&nbsp;<a asp-action="Index" class="btn btn-success">Back to</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+<br />
+<table class=" table table-bordered">
+    @using (Html.BeginForm("Create", "SubCategories", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+    <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <th>Name</th>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <th>Status</th>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <th>Category</th>
+    </tr>
+    <tr>
+        <td>
+            @Html.EditorFor(model => model.SubCategoryName, new { HtmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SubCategoryName, "", new { @class = "text-danger" })
+        </td>
+        <td>
+            @Html.EditorFor(model => model.SubCategoryStatus, new { HtmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SubCategoryStatus, "", new { @class = "text-danger" })
+        </td>       
+        <td>
+            @Html.DropDownListFor(item => item.CategoryId, (IEnumerable<SelectListItem>)ViewBag.category, "--Select Category--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+        </td>
+   
+    </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Create" class="btn btn-primary" />
+                &nbsp; <a href="@Url.Action("Index","SubCategories")" class="btn btn-success fas fa-backward fa-1x">Back To</a>
+            </td>
+        </tr>
+    }
+</table>
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

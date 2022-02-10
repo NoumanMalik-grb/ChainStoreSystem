@@ -32,91 +32,97 @@
     </style>
 </head>
 <br />
-<table class="table table-borderless table-hover display" width="100%" id="Mytable" style="background-color:darkcyan">
-    <thead>
-        <tr>
-            <th style="">
-                SrNo#
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Discription
-            </th>
-            <th>
-                Price
-            </th>
-            <th>Picture</th>
-            <th>
-                Discount
-            </th>
-            <th>
-                EXP DATE
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelitem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product_Discription_Max)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelitem => item.Product_Sale_Price)
-                </td>
-                <td>
-                    <img src="~/StoreImage/@item.Product_Picture" style="height:100px; width100px" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product_Discount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelitem => item.Product_Exp_Date)
-                </td>
+<div class="container">
+    <table class="text-center table" style="width:100%" id="Mytable">
+        <thead>
+            <tr style="background-color:darkcyan; color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+                <th>
+                    SrNo#
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Discription
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>Picture</th>
+                <th>
+                    Discount
+                </th>
+                <th>
+                    EXP DATE
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product_Discription_Max)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Product_Sale_Price)
+                    </td>
+                    <td>
+                        <img src="~/StoreImage/@item.Product_Picture" style="height:100px; width100px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product_Discount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Product_Exp_Date)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
 
 <!--Bootstrap model Start-->
 <div>
-    <form asp-action="AddToCart" asp-controller="Cart" method="post">
+    
         <div class="modal fade" id="mymodal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Product Detail</h4>
                     </div>
-                    <div class="modal-body">
-                        <div class="id"><p>Id: </p><span></span></div>
-                        <div class="name"><p>Name:</p><span></span></div>
-                        <div class="description"><p>Description:</p><span></span></div>
-                        <div class="price"><p>Price:</p><span></span></div>
-                        @*<div class="picture"><p>Picture</p><span></span></div>*@
-                      <div>
-                          <img id="picture" src="~/StoreImage/"/><p>Picture</p><span></span>
-                      </div>
-                        <div class="discount"><p>Discount</p><span></span></div>
-                        <div class="ExpDate"><p>ExpDate</p><span></span></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-default ">Apply!</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-primary">Close</button>
-                    </div>
+                    <form asp-action="cus" asp-controller="Customer" method="post">
+                        <div class="modal-body"> 
+                            <input type="hidden" name="Id" id="Id" class="form-control"/>
+                           <div id="id"><p>Id: </p><span></span></div>
+                            <div class="name"><p>Name:</p><span></span></div>
+                            <div class="description"><p>Description:</p><span></span></div>
+                            <div class="price"><p>Price:</p><span></span></div>
+                            <div>
+                                <img id="picture" width="60" height="50" src="~/StoreImage/" /><p>Picture</p><span></span>
+                            </div>
+                            <div class="discount"><p>Discount</p><span></span></div>
+                            <div class="ExpDate"><p>ExpDate</p><span></span></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default ">Apply!</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-primary">Close</button>
+                        </div>
+                    </form>
                 </div>
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
         </div>
-    </form>
+    
 </div>
 
 <!-- /.modal -->

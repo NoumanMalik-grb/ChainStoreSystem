@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ChainStoreSystem.Data;
 using ChainStoreSystem.Models;
+using ChainStoreSystem.ViewModel.DamagedProduct;
 
 namespace ChainStoreSystem.Controllers
 {
@@ -20,9 +21,24 @@ namespace ChainStoreSystem.Controllers
         }
 
         // GET: DamagedProducts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.damagedProducts.ToListAsync());
+            var result = (from d in _context.damagedProducts
+                          join a in _context.areas on d.Area_FId equals a.Id
+                          join p in _context.products on d.Product_Fid equals p.Id
+                          select new DamagedProduct()
+                          {
+                            Areas=a,
+                            Products=p,
+                            Area_FId=d.Area_FId,
+                            Product_Fid=d.Product_Fid,
+                            Id=d.Id,
+                            Name=d.Name,
+                            Type=d.Type,
+                            Date_Time=d.Date_Time
+
+                          }).AsAsyncEnumerable();
+            return View(result);
         }
 
         // GET: DamagedProducts/Details/5
@@ -46,19 +62,38 @@ namespace ChainStoreSystem.Controllers
         // GET: DamagedProducts/Create
         public IActionResult Create()
         {
+            //for area
+            IEnumerable<SelectListItem> Aeaitem = _context.areas.
+                Select(c => new SelectListItem
+                { Value = c.Id.ToString(), Text = c.Name });
+            ViewBag.Area = Aeaitem;
+            //for product
+            IEnumerable<SelectListItem> Proitem = _context.products.
+                Select(p => new SelectListItem
+                { Value = p.Id.ToString(), Text = p.ProductName });
+            ViewBag.ProductItem = Proitem;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Type,Date_Time,Area_Id,Product_Fid")] DamagedProduct damagedProduct)
+        public async Task<IActionResult> Create(DamagedProductViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(damagedProduct);
+                var dmproduct = new DamagedProduct()
+                {
+                   Id=model.Id,
+                   Name=model.Name,
+                   Type=model.Type,
+                   Date_Time=model.Date_Time,
+                   Area_FId=model.AreaId,
+                   Product_Fid=model.ProductId
+                };
+                _context.Add(dmproduct);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(damagedProduct);
+            return View(model);
         }
 
         // GET: DamagedProducts/Edit/5
@@ -70,46 +105,53 @@ namespace ChainStoreSystem.Controllers
             }
 
             var damagedProduct = await _context.damagedProducts.FindAsync(id);
+            var Damagepro = new DamagedProductViewModel()
+            {
+                Id = damagedProduct.Id,
+                Name = damagedProduct.Name,
+                Type = damagedProduct.Type,
+                Date_Time = damagedProduct.Date_Time,
+                AreaId = damagedProduct.Area_FId,
+                ProductId = damagedProduct.Product_Fid
+            };
             if (damagedProduct == null)
             {
                 return NotFound();
             }
-            return View(damagedProduct);
-        }
-
-        // POST: DamagedProducts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+            //for area
+            IEnumerable<SelectListItem> Aeaitem = _context.areas.
+                Select(c => new SelectListItem
+                { Value = c.Id.ToString(), Text = c.Name });
+            ViewBag.Area = Aeaitem;
+            //for product
+            IEnumerable<SelectListItem> Proitem = _context.products.
+                Select(p => new SelectListItem
+                { Value = p.Id.ToString(), Text = p.ProductName });
+            ViewBag.ProductItem = Proitem;
+            return View(Damagepro);
+        }       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Type,Date_Time,Area_Id,Product_Fid")] DamagedProduct damagedProduct)
+        public async Task<IActionResult> Edit(int id, DamagedProductViewModel model)
         {
-            if (id != damagedProduct.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(damagedProduct);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DamagedProductExists(damagedProduct.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var DamagedDt = await _context.damagedProducts.FindAsync(model.Id);
+                DamagedDt.Name = model.Name;
+                DamagedDt.Type = model.Type;
+                DamagedDt.Date_Time = model.Date_Time;
+                DamagedDt.Area_FId = model.AreaId;
+                DamagedDt.Product_Fid = model.ProductId;
+                _context.Update(DamagedDt);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            return View(damagedProduct);
+            return View(model);
         }
 
         // GET: DamagedProducts/Delete/5

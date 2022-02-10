@@ -4,75 +4,119 @@
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<br />
-<h3 style="text-align:center; color:red">Are you sure you want to delete this?</h3>
-<div style="margin-left:1%">
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserEmail)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserEmail)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserMobile)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserMobile)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address1)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address1)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address2)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address2)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CNIC)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CNIC)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User_Picture)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User_Picture)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date_Time)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date_Time)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PassWord)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PassWord)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" />&nbsp;
-        <a asp-action="Index" class="btn btn-success">Back to</a>
-    </form>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Delete/Account</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>
+<br />
+<tr>
+    <td>
+
+        <h3 style="text-align:center; color:red">Are you sure you want to delete this?</h3>
+    </td>
+</tr>
+<table class="table table-bordered table-hover table-responsive">
+
+    <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+        <td>
+            Name
+        </td>
+        <td>
+            Email
+        </td>
+        <td>
+            Mobile
+        </td>
+    </tr>
+    <tr style="font-family:Arial">
+        <td>
+            @Html.DisplayFor(model => model.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.UserEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.UserMobile)
+        </td>
+    </tr>
+    <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+        <td>
+            Address-1
+        </td>
+        <td>
+            Address-2
+        </td>
+        <td>
+            CNIC
+        </td>
+
+    </tr>
+    <tr style="font-family:Arial">
+        <td>
+            @Html.DisplayFor(model => model.Address1)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Address2)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.CNIC)
+        </td>
+    </tr>
+    <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+        <td>
+            Picture
+        </td>
+        <td>
+            Date Time
+        </td>
+        <td>
+            Password
+        </td>
+
+    </tr>
+    <tr style="font-family:Arial">
+        <td>
+            <img src="~/StoreImage/@Model.ExistingImage" alt="" style="height:100px;width:100px" />
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Date_Time)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PassWord)
+        </td>
+    </tr>
+    <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+        <td>
+            type
+        </td>
+    </tr>
+    <tr style="font-family:Arial">
+        <td>
+            @Html.DisplayFor(model => model.Type)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-danger" />&nbsp;<a href="@Url.Action("Index", "Accounts")" class="btn btn-success">Back To</a>
+                </div>
+            }
+        </td>
+    </tr>
+</table>
+

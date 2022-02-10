@@ -4,42 +4,75 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<br />
-<div class="row">
-    <div class="col-md-9" style="margin-left:1%">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CompanyName" class="control-label"></label>
-                <input asp-for="CompanyName" class="form-control" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Create/CompanyDetail</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
             </div>
-            <div class="form-group">
-                <label asp-for="CompanyEmail" class="control-label"></label>
-                <input asp-for="CompanyEmail" class="form-control" />
-                <span asp-validation-for="CompanyEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompanyLogo" class="control-label"></label>
-                <input asp-for="CompanyLogo" class="form-control" />
-                <span asp-validation-for="CompanyLogo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Message" class="control-label"></label>
-                <input asp-for="Message" class="form-control" />
-                <span asp-validation-for="Message" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />&nbsp; <a asp-action="Index" class="btn btn-success">Back to</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+<br />
+<table class=" table table-bordered">
+    @using (Html.BeginForm("Create", "CompanyDetails", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Name</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Email</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Picture</th>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.CompanyName, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CompanyEmail, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CompanyEmail, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CompanyLogo, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CompanyLogo, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Address</th>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <th>Message</th>
+           
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.Address, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Message, new { HtmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Create" class="btn btn-primary" />
+                &nbsp; <a href="@Url.Action("Index","CompanyDetails")" class="btn btn-success fas fa-backward fa-1x">Back To</a>
+            </td>
+        </tr>
+    }
+</table>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

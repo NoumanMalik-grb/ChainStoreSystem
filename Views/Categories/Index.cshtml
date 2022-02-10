@@ -4,25 +4,40 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Index/Category</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 <br />
 <p>
-    <a asp-action="Create" class="btn btn-primary" style="margin-left:1%">Add Item</a>
+    <a asp-action="Create" class="btn btn-primary" style="margin-left:2%">Add Item</a>
 </p>
-<table class="table table-responsive col-9 table-hover" style="margin-left:1%">
+<table class="table table-hover table-responsive table-bordered text-center">
     <thead>
-        <tr style="background-color:skyblue;font-size:15px">
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
             <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
+               Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryStatus)
+              Status
             </th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr >
+        <tr class="text-capitalize ">
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>

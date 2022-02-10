@@ -27,24 +27,25 @@ namespace ChainStoreSystem.Controllers
         // GET: Products
         public IActionResult Index()
         {
-            var result = (from p in _context.products 
-                          join s in _context.Sub_Categorie on p.SubCategory_Fid equals s.Id 
-                          join a  in _context.areas on p.Area_FId equals a.Id
+            var result = (from p in _context.products
+                          join s in _context.Sub_Categorie on p.SubCategory_Fid equals s.Id
+                          join a in _context.areas on p.Area_FId equals a.Id
                           select new Product()
                           {
-                           SubCategorys=s,
-                           Areas=a,
-                           SubCategory_Fid=p.SubCategory_Fid,
-                           Area_FId=p.Area_FId,
-                           ProductName=p.ProductName,
-                           Product_Picture=p.Product_Picture,
-                           Product_Discription_Max=p.Product_Discription_Max,
-                           Product_Sale_Price=p.Product_Sale_Price,
-                           Product_Purchase_Price=p.Product_Purchase_Price,
-                           Product_Status=p.Product_Status,
-                           Product_Discount=p.Product_Discount,
-                           Product_Add_Date=p.Product_Add_Date,
-                           Product_Exp_Date=p.Product_Exp_Date
+                              SubCategorys = s,
+                              Areas = a,
+                              SubCategory_Fid = p.SubCategory_Fid,
+                              Area_FId = p.Area_FId,
+                              ProductName = p.ProductName,
+                              Id=p.Id,
+                              Product_Picture = p.Product_Picture,
+                              Product_Discription_Max = p.Product_Discription_Max,
+                              Product_Sale_Price = p.Product_Sale_Price,
+                              Product_Purchase_Price = p.Product_Purchase_Price,
+                              Product_Status = p.Product_Status,
+                              Product_Discount = p.Product_Discount,
+                              Product_Add_Date = p.Product_Add_Date,
+                              Product_Exp_Date = p.Product_Exp_Date
                           }
                         ).ToList();
 
@@ -74,7 +75,9 @@ namespace ChainStoreSystem.Controllers
                 Product_Discount = product.Product_Discount,
                 Product_Exp_Date = product.Product_Exp_Date,
                 Product_Add_Date = product.Product_Add_Date,
-                
+                AreaId=product.Area_FId,
+                Sub_categoryId=product.SubCategory_Fid
+
             };
             if (product == null)
             {
@@ -87,11 +90,13 @@ namespace ChainStoreSystem.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            IEnumerable<SelectListItem> SubCatitem = _context.Sub_Categorie.Select(c => new SelectListItem 
-            { Value = c.Id.ToString(), Text = c.SubCategoryName });
+            IEnumerable<SelectListItem> SubCatitem = _context.Sub_Categorie.
+                Select(c => new SelectListItem
+                { Value = c.Id.ToString(), Text = c.SubCategoryName });
             ViewBag.SubCategory = SubCatitem;
-            IEnumerable<SelectListItem> Aeaitem = _context.areas.Select(c => new SelectListItem
-            {Value=c.Id.ToString(), Text=c.Name });
+            IEnumerable<SelectListItem> Aeaitem = _context.areas.
+                Select(c => new SelectListItem
+                { Value = c.Id.ToString(), Text = c.Name });
             ViewBag.Area = Aeaitem;
             return View();
         }
@@ -102,6 +107,7 @@ namespace ChainStoreSystem.Controllers
             string UniqueFileName = UploadFile(model);
             var productDt = new Product()
             {
+                
                 ProductName = model.ProductName,
                 Product_Picture = UniqueFileName,
                 Product_Discription_Min = model.Product_Discription_Min,
@@ -112,8 +118,8 @@ namespace ChainStoreSystem.Controllers
                 Product_Discount = model.Product_Discount,
                 Product_Add_Date = model.Product_Add_Date,
                 Product_Exp_Date = model.Product_Exp_Date,
-                SubCategory_Fid=model.Sub_categoryId,
-                Area_FId=model.AreaId
+                SubCategory_Fid = model.Sub_categoryId,
+                Area_FId = model.AreaId
             };
             _context.Add(productDt);
             await _context.SaveChangesAsync();
@@ -121,6 +127,7 @@ namespace ChainStoreSystem.Controllers
         }
 
         // GET: Products/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -142,12 +149,22 @@ namespace ChainStoreSystem.Controllers
                 Product_Discount = product.Product_Discount,
                 Product_Add_Date = product.Product_Add_Date,
                 Product_Exp_Date = product.Product_Exp_Date,
-                
+                AreaId=product.Area_FId,
+                Sub_categoryId=product.SubCategory_Fid
+
             };
             if (product == null)
             {
                 return NotFound();
             }
+            IEnumerable<SelectListItem> SubCatitem = _context.Sub_Categorie.
+               Select(c => new SelectListItem
+               { Value = c.Id.ToString(), Text = c.SubCategoryName });
+            ViewBag.SubCategory = SubCatitem;
+            IEnumerable<SelectListItem> Aeaitem = _context.areas.
+                Select(c => new SelectListItem
+                { Value = c.Id.ToString(), Text = c.Name });
+            ViewBag.Area = Aeaitem;
             return View(productDt);
         }
         [HttpPost]
@@ -166,12 +183,14 @@ namespace ChainStoreSystem.Controllers
                 productDt.Product_Discription_Max = model.Product_Discription_Max;
                 productDt.Product_Discription_Min = model.Product_Discription_Min;
                 productDt.Product_Sale_Price = model.Product_Sale_Price;
-                productDt.Product_Sale_Price = model.Product_Sale_Price;
+                productDt.Product_Purchase_Price = model.Product_Purchase_Price;
                 productDt.Product_Status = model.Product_Status;
                 productDt.Product_Discount = model.Product_Discount;
                 productDt.Product_Add_Date = model.Product_Add_Date;
                 productDt.Product_Exp_Date = model.Product_Exp_Date;
-             
+                productDt.Area_FId = model.AreaId;
+                productDt.SubCategory_Fid = model.Sub_categoryId;
+
                 if (model.Product_Picture != null)
                 {
                     if (model.ExistingImage != null)
@@ -211,6 +230,8 @@ namespace ChainStoreSystem.Controllers
                 Product_Discount = product.Product_Discount,
                 Product_Add_Date = product.Product_Add_Date,
                 Product_Exp_Date = product.Product_Add_Date,
+                AreaId=product.Area_FId,
+                Sub_categoryId=product.SubCategory_Fid
             };
             if (product == null)
             {

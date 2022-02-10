@@ -10,6 +10,8 @@ namespace ChainStoreSystem.ViewModel.ProductViewModel
 {
     public class ProductImageViewModel : EditImageProductViewModel
     {
+        [Key]
+        
         [Required]
         public String ProductName { get; set; }
         [Required]

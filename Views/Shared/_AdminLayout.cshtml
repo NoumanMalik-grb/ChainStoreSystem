@@ -62,7 +62,7 @@
                         <li class="sidebar-item">
                             <a asp-controller="Categories" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
                                aria-expanded="false">
-                                <i class="fa fa-shekel-sign"></i><span >Category</span>
+                                <i class="fa fa-shekel-sign"></i><span>Category</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -82,6 +82,71 @@
                                aria-expanded="false">
                                 <i class="mdi mdi-blur-linear"></i><span class="hide-menu">DamagedProduct</span>
                             </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-record"></i><span class="hide-menu">Reports</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a asp-controller="StoreReport" asp-action="StockReport" class="sidebar-link">
+                                        <i class="mdi mdi-note-outline"></i><span class="hide-menu">
+                                            StockReport
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-controller="StoreReport" asp-action="ProfitAndLoss" class="sidebar-link">
+                                        <i class="fas fa-user"></i><span class="hide-menu">
+                                            Profit&LossReport
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-controller="StoreReport" asp-action="DamagedProduct" class="sidebar-link">
+                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                            DamagedProductReport
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-controller="StoreReport" asp-action="StoreRecordReports" class="sidebar-link">
+                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                            StoreRecordReport
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-controller="StoreReport" asp-action="SaleInvoice" class="sidebar-link">
+                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                            SaleInvoice
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-controller="StoreReport" asp-action="TotalSale" class="sidebar-link">
+                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                            TotalSale
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-controller="StoreReport" asp-action="HighselingArea" class="sidebar-link">
+                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                            HighSaleReprts
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a asp-controller="StoreReport" asp-action="LowselingArea" class="sidebar-link">
+                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                            LowSaleReprts
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+
                         </li>
                         <li class="sidebar-item">
                             <a asp-controller="Areas" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
@@ -110,6 +175,7 @@
                                     </a>
                                 </li>
                             </ul>
+
                         </li>
 
                     </ul>

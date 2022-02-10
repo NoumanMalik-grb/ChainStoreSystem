@@ -3,67 +3,83 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-   
+
 }
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Index/Account</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 <br />
 <p>
-    <a asp-action="Create" class="btn btn-primary" style="margin-left:1%">Add Item</a>
+    <a asp-action="Create" class="btn btn-primary" style="margin-left:2%">Add Item</a>
 </p>
-<table class="table table-responsive">
+<table class="table table-hover table-responsive table-bordered text-center">
     <thead>
-        <tr style="background-color:cornflowerblue">
+        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
             <th>
-              Name
+                Name
             </th>
             <th>
-               Email
+                Email
             </th>
             <th>
                 Mobile No
             </th>
-              
+
             <th>
-              Address
-            </th>                 
-            <th>
-               Picture
+                Address
             </th>
-        
             <th>
-               Type
+                Picture
+            </th>
+
+            <th>
+                Type
             </th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-         
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserMobile)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address1)
-            </td>
-            <td>
-                <img src="~/StoreImage/@item.User_Picture" alt="" style="height:100px;width:100px" />
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="fas fa-edit text-primary"></a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="fas fa-eye text-success"></a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="fas fa-trash text-danger"></a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+
+            <tr class="text-capitalize ">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserMobile)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address1)
+                </td>
+                <td>
+                    <img src="~/StoreImage/@item.User_Picture" alt="" style="height:100px;width:100px" />
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="fas fa-edit text-primary"></a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="fas fa-eye text-success"></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="fas fa-trash text-danger"></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

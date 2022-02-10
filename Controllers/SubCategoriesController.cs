@@ -56,15 +56,16 @@ c in _context.categories on s.Category_Fid equals c.Id
             IEnumerable<SelectListItem> items = _context.categories.
             Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.CategoryName });
             ViewBag.category = items;
+
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CategoryDropDownViewModel model)
+        public IActionResult Create(int? id, CategoryDropDownViewModel model)
         {
             var subCategory = new SubCategory
             {
-                Category_Fid=model.CategoryId,
+                Category_Fid = model.CategoryId,
                 SubCategoryName = model.SubCategoryName,
                 SubCategoryStatus = model.SubCategoryStatus
             };
@@ -81,42 +82,42 @@ c in _context.categories on s.Category_Fid equals c.Id
             }
 
             var subCategory = await _context.Sub_Categorie.FindAsync(id);
+            var categroyDt = new CategoryDropDownViewModel()
+            {
+                CategoryId = subCategory.Id,
+                SubCategoryName = subCategory.SubCategoryName,
+                SubCategoryStatus = subCategory.SubCategoryStatus
+            };
             if (subCategory == null)
             {
                 return NotFound();
             }
-            return View(subCategory);
+            IEnumerable<SelectListItem> SubCatitem = _context.categories.
+               Select(c => new SelectListItem
+               { Value = c.Id.ToString(), Text = c.CategoryName });
+            ViewBag.Category = SubCatitem;
+            return View(categroyDt);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, SubCategory subCategory)
+        public async Task<IActionResult> Edit(int id, CategoryDropDownViewModel model)
         {
-            if (id != subCategory.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(subCategory);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SubCategoryExists(subCategory.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var CategoryDt = await _context.Sub_Categorie.FindAsync(model.Id);
+                CategoryDt.Category_Fid = model.CategoryId;
+                CategoryDt.SubCategoryName = model.SubCategoryName;
+                CategoryDt.SubCategoryStatus = model.SubCategoryStatus;
+                _context.Update(CategoryDt);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(subCategory);
+            return View(model);
         }
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
