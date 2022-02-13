@@ -47,7 +47,7 @@ namespace ChainStoreSystem.Controllers
                               Product_Add_Date = p.Product_Add_Date,
                               Product_Exp_Date = p.Product_Exp_Date
                           }
-                        ).ToList();
+                        ).AsAsyncEnumerable();
 
             return View(result);
         }

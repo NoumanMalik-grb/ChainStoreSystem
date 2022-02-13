@@ -27,6 +27,9 @@
     <thead>
         <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
             <th>
+                Sr#
+            </th>
+            <th>
               Name
             </th>
             <th>
@@ -55,8 +58,13 @@
         </tr>
     </thead>
     <tbody>
+        @{int k = 1; }
 @foreach (var item in Model) {
         <tr class="text-capitalize ">
+            <td>
+                @k
+                @{ k++;}
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>

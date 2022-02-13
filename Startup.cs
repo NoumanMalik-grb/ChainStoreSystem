@@ -30,7 +30,7 @@ namespace ChainStoreSystem
             GetConnectionString("ChainStoreSystem")));
             services.AddControllersWithViews();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(5);
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
             });
         }
 
@@ -51,14 +51,12 @@ namespace ChainStoreSystem
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Customer}/{action=Index}/{id?}");
             });
         }
     }

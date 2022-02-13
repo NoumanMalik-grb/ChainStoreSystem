@@ -10,13 +10,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-
 <body style="background-color:silver">
-    
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3" style="background-color:cadetblue">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3" style="background-color:cadetblue;width:100%">
             <div class="container">
-                <img src="~/Admin/Logo2.png" alt="homepage" class="light-logo" style="height:50px;width:150px" />
+                <img src="~/Admin/Logo2.png" alt="homepage" class="light-logo" style="height:70px;width:150px" />
                 <marquee direction="left" width="80%">
                     <h5 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color:darkred">Thank You Dear Customer For Visiting Our Store:Cell(+92345667790)</h5>
                 </marquee>
@@ -27,21 +25,21 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
             </div>
         </nav>
     </header>
     <div class="container">
-       
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+
     </div>
-    <footer class="footer text-left bottom-0" style="margin-left:8%">
+    <br />
+    <footer class="footer text-center">
         &copy; @System.DateTime.Now.Year
         All Rights Reserved by University of sialkot. Designed and Developed by <a href="#">Chain Store System</a>
     </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
@@ -63,26 +61,27 @@
             var table = $('#Mytable').DataTable();
             $('#Mytable tbody').on('click', 'tr', function () {
                 console.log(table.row(this).data());
-                console.log(table.row(this).data()[4]);
-                var img = table.row(this).data()[4];
+                console.log(table.row(this).data()[5]);
+                var img = table.row(this).data()[5];
                 var element = document.createElement("div");
                 element.innerHTML = img;
                 var images = element.getElementsByTagName("img");
                 let imgpath = images[0].src;
                 console.log(images[0].src);
                 $(".modal-body div span").text("");
-                $("#id span").text(table.row(this).data()[0]);
-                $(".name span").text(table.row(this).data()[1]);
-                $(".description span").text(table.row(this).data()[2]);
-                $(".price span").text(table.row(this).data()[3]);
-                $("#picture span").text(table.row(this).data()[4]);
+                $("#Sr span").text(table.row(this).data()[0]);
+                $("#proId span").text(table.row(this).data()[1]);
+                $(".name span").text(table.row(this).data()[2]);
+                $(".description span").text(table.row(this).data()[3]);
+                $(".price span").text(table.row(this).data()[4]);
+                $("#picture span").text(table.row(this).data()[5]);
                 var img = document.getElementById("picture");
                 img.src = imgpath;
-                $(".discount span").text(table.row(this).data()[5]);
-                $(".ExpDate span").text(table.row(this).data()[6]);
+                $(".discount span").text(table.row(this).data()[6]);
+                $(".ExpDate span").text(table.row(this).data()[7]);              
                 $("#mymodal").modal("show");
             });
-        });
+        });       
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
