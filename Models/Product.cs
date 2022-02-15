@@ -21,7 +21,9 @@ namespace ChainStoreSystem.Models
         [Required]
         public decimal Product_Sale_Price { get; set; }
         [Required]
-        public decimal Product_Purchase_Price { get; set; }
+        public decimal Product_Purchase_Price { get; set; }      
+        [NotMapped]
+        public int Product_Quantity { get; set; }
         [Required]
         public String Product_Status { get; set; }       
         public decimal Product_Discount { get; set; }

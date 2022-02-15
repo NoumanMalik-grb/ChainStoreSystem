@@ -29,8 +29,9 @@ namespace ChainStoreSystem
             option.UseSqlServer(Configuration.
             GetConnectionString("ChainStoreSystem")));
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
             });
         }
 

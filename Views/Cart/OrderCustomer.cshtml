@@ -1,0 +1,22 @@
+﻿@model ChainStoreSystem.Models.Order
+@{
+    ViewData["Title"] = "OrderCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>OrderCustomer</h1>
+<form asp-action="PayNo" asp-controller="Cart" method="post">
+    <label asp-for="Order_Name" class="label-control"></label>
+    <input asp-for="Order_Name" class="form-control" required />
+    <label asp-for="Order_City" class="label-control"></label>
+    <input asp-for="Order_City" class="form-control" required/>
+    <label asp-for="Area" class="label-control"></label>
+    <input asp-for="Area" class="form-control" required/>
+
+    <div>
+        <b>Ofline Pay</b>:<input type="radio" value="Ofline Pay" name="Order_Status" checked="checked" />
+        <b>Online Pay</b><input type="radio" value="Online Pay" name="Order_Status" />
+    </div>
+    <input type="submit" name="name" value="Submit" class="btn-outline-primary" />
+</form>
+

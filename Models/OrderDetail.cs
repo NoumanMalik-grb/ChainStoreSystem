@@ -16,7 +16,7 @@ namespace ChainStoreSystem.Models
         [Required]
         public decimal Purchase_Price { get; set; }
         [Required]
-        public String Quantity { get; set; }
+        public int Quantity { get; set; }
         //foreign key Prodcut
         [Display(Name ="Product")]
         [ForeignKey("Product_FId")]

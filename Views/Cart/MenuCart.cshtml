@@ -1,0 +1,110 @@
+﻿@model ChainStoreSystem.Models.Product
+@using ChainStoreSystem.Helpers
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "MenuCart";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    int row = 0;
+    int TotalQauntity = 0;
+    decimal Totalbill = 0;
+}
+
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-8 col-sm-8 col-lg-8 col-md-8">
+            <table class="table table-borderless table-responsive col-12">
+                <thead class="table-primary">
+                    <tr style="background-color:cadetblue; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: white; text-align: center">
+                        <th>Sr#</th>
+                        <th>Picture</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1; }
+                    @{ List<Product> products = SessionHelper.GetObjectFromJson<List<Product>>(Context.Session, "Plistcart"); }
+
+                    @if (products != null)
+                    {
+                        @foreach (var item in products)
+                        {
+                            <tr>
+                                <td>
+                                    @i
+                                </td>
+                                @{ i++;}
+                                <td>
+                                    <img src="~/StoreImage/@item.Product_Picture" alt="" style="height:100px;width:100px" />
+                                </td>
+                                <td>
+                                    @item.ProductName
+                                </td>
+                                <td>
+                                    @item.Product_Sale_Price
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Plus","Cart",new  {RowNo=row })" class="btn btn-danger fas fa-plus"></a>
+
+                                    @item.Product_Quantity
+                                    <a href="@Url.Action("Minus","Cart",new { RowNo=row})" class="btn btn-danger fas fa-minus"></a>
+                                </td>
+                                <td>
+                                    <h5>@(decimal.Parse(item.Product_Sale_Price.ToString())*int.Parse(item.Product_Quantity.ToString()))</h5>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Remove","Cart",new { RowNo=row} )" class="btn btn-danger">
+                                        <i class="fa fa-window-close" style="font-size: 25px;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            row++;
+                            TotalQauntity += item.Product_Quantity;
+                            Totalbill += (decimal.Parse(item.Product_Sale_Price.ToString()) * int.Parse(item.Product_Quantity.ToString()));
+                        }
+                    }
+
+                    @if (products == null || row == 0)
+                    {
+
+                        <tr>
+                            <td colspan="6" align="center"><b>your shoping cart is empty<a href="@Url.Action("Index","Customer")">Click here for buy now</a></b></td>
+                        </tr>
+
+                    }
+                    <tr style="background-color:cadetblue; text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: white">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@TotalQauntity</td>
+                        <td>@Totalbill</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <a href="@Url.Action("Index","Customer")" class="btn btn-danger" style="margin-left:2%;color:cadetblue">Continue Shopping</a>&nbsp;
+                @if (products != null)
+                {
+                    <div>
+                        <a href="@Url.Action("OrderCustomer","Cart")" class="btn btn-danger">Order Confirm</a>
+                    </div>
+                }
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
