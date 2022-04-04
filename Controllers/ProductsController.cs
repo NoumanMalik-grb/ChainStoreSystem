@@ -37,7 +37,7 @@ namespace ChainStoreSystem.Controllers
                               SubCategory_Fid = p.SubCategory_Fid,
                               Area_FId = p.Area_FId,
                               ProductName = p.ProductName,
-                              Id=p.Id,
+                              Id = p.Id,
                               Product_Picture = p.Product_Picture,
                               Product_Discription_Max = p.Product_Discription_Max,
                               Product_Sale_Price = p.Product_Sale_Price,
@@ -75,8 +75,8 @@ namespace ChainStoreSystem.Controllers
                 Product_Discount = product.Product_Discount,
                 Product_Exp_Date = product.Product_Exp_Date,
                 Product_Add_Date = product.Product_Add_Date,
-                AreaId=product.Area_FId,
-                Sub_categoryId=product.SubCategory_Fid
+                AreaId = product.Area_FId,
+                Sub_categoryId = product.SubCategory_Fid
 
             };
             if (product == null)
@@ -104,26 +104,36 @@ namespace ChainStoreSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductImageViewModel model)
         {
-            string UniqueFileName = UploadFile(model);
-            var productDt = new Product()
+            try
             {
-                
-                ProductName = model.ProductName,
-                Product_Picture = UniqueFileName,
-                Product_Discription_Min = model.Product_Discription_Min,
-                Product_Discription_Max = model.Product_Discription_Max,
-                Product_Sale_Price = model.Product_Sale_Price,
-                Product_Purchase_Price = model.Product_Purchase_Price,
-                Product_Status = model.Product_Status,
-                Product_Discount = model.Product_Discount,
-                Product_Add_Date = model.Product_Add_Date,
-                Product_Exp_Date = model.Product_Exp_Date,
-                SubCategory_Fid = model.Sub_categoryId,
-                Area_FId = model.AreaId
-            };
-            _context.Add(productDt);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    string UniqueFileName = UploadFile(model);
+                    var productDt = new Product()
+                    {
+                        ProductName = model.ProductName,
+                        Product_Picture = UniqueFileName,
+                        Product_Discription_Min = model.Product_Discription_Min,
+                        Product_Discription_Max = model.Product_Discription_Max,
+                        Product_Sale_Price = model.Product_Sale_Price,
+                        Product_Purchase_Price = model.Product_Purchase_Price,
+                        Product_Status = model.Product_Status,
+                        Product_Discount = model.Product_Discount,
+                        Product_Add_Date = model.Product_Add_Date,
+                        Product_Exp_Date = model.Product_Exp_Date,
+                        SubCategory_Fid = model.Sub_categoryId,
+                        Area_FId = model.AreaId
+                    };
+                    _context.Add(productDt);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction("Create","Products");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // GET: Products/Edit/5
@@ -149,8 +159,8 @@ namespace ChainStoreSystem.Controllers
                 Product_Discount = product.Product_Discount,
                 Product_Add_Date = product.Product_Add_Date,
                 Product_Exp_Date = product.Product_Exp_Date,
-                AreaId=product.Area_FId,
-                Sub_categoryId=product.SubCategory_Fid
+                AreaId = product.Area_FId,
+                Sub_categoryId = product.SubCategory_Fid
 
             };
             if (product == null)
@@ -230,8 +240,8 @@ namespace ChainStoreSystem.Controllers
                 Product_Discount = product.Product_Discount,
                 Product_Add_Date = product.Product_Add_Date,
                 Product_Exp_Date = product.Product_Add_Date,
-                AreaId=product.Area_FId,
-                Sub_categoryId=product.SubCategory_Fid
+                AreaId = product.Area_FId,
+                Sub_categoryId = product.SubCategory_Fid
             };
             if (product == null)
             {

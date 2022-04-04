@@ -6,13 +6,15 @@
     <title>@ViewData["Title"] - ChainStoreSystem</title>
     <link href="~/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
     <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+   
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body style="background-color:silver">
+   
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3" style="background-color:cadetblue;width:100%">
+        <nav class="navbar navbar-expand-sm navbar-expand-lg navbar-expand-md navbar-expand-xl navbar-expand-xxl navbar-toggleable-sm  border-bottom box-shadow mb-3" style="background-color:cadetblue;width:100%">
             <div class="container">
                 <img src="~/Admin/Logo2.png" alt="homepage" class="light-logo" style="height:70px;width:150px" />
                 <marquee direction="left" width="80%">
@@ -28,8 +30,9 @@
             </div>
         </nav>
     </header>
-    <div class="container">
 
+    <div class="container">
+       
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -44,19 +47,37 @@
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         $(document).ready(function () {
             $('#Mytable').dataTable();
         });
-        //code for bootstrap modal
-        jQuery(document).ready(function ($) {
-            $('#Mytable').DataTable({
-                searching: false,
-                responsive: true,
-                "autoWidth": true,
-            })
-        });
+    </script>
+    <!--Start code for datatable responsivie-->
+    @*<script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('#Mytable').DataTable({
+                    searching: false,
+                    responsive: true,
+                    "autoWidth": true,
+                })
+            });
+        </script>*@
+    <!--Endcode for datatable responsivie-->
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6232565ba34c2456412b6ca1/1fuaa2lvk';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <!-- Start code for bootstrap modal-->
+    <script type="text/javascript">
         $(document).ready(function () {
             var table = $('#Mytable').DataTable();
             $('#Mytable tbody').on('click', 'tr', function () {
@@ -78,11 +99,13 @@
                 var img = document.getElementById("picture");
                 img.src = imgpath;
                 $(".discount span").text(table.row(this).data()[6]);
-                $(".ExpDate span").text(table.row(this).data()[7]);              
+                $(".expdate span").text(table.row(this).data()[7]);
                 $("#mymodal").modal("show");
             });
-        });       
+        });
     </script>
+    <!-- End code for bootstrap modal-->
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

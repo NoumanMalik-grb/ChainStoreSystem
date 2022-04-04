@@ -11,7 +11,7 @@ namespace ChainStoreSystem.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="name field is required")]
         public String ProductName { get; set; }
         [Required]
         public String Product_Picture { get; set; }

@@ -22,7 +22,7 @@ namespace ChainStoreSystem.Models
         [Required]
         public String Order_Delivery_Status { get; set; }
         [Required]
-        public DateTime Order_DateTime { get; set; }
+        public DateTime Order_DateTime { get; set; } 
         [Required]
         public String Area { get; set; }
         //foreign key

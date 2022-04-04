@@ -1,4 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using ChainStoreSystem.Helpers
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@using Newtonsoft.Json
+@using System.Web;
+@{
+    var userinfo = SessionHelper.GetObjectFromJson<Account>(Context.Session, "userinfo");
+
+    if (userinfo == null)
+    {
+        //Response.Redirect("login", "login");
+
+    }
+}
+<!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
     <meta charset="utf-8">
@@ -10,7 +24,7 @@
     <link href="~/Admin/dist/css/style.min.css" rel="stylesheet">
     <link href="~/Admin/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 </head>
-<body> 
+<body>
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
@@ -49,7 +63,7 @@
                 </div>
             </nav>
         </header>
-        <aside class="left-sidebar" data-sidebarbg="skin5">
+        <aside class="left-sidebar col-3" data-sidebarbg="skin5">
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="pt-4">
@@ -86,61 +100,61 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark"
                                href="javascript:void(0)" aria-expanded="false">
-                                <i class="mdi mdi-record"></i><span class="hide-menu">Reports</span>
+                                <i class="fas fa-folder-open"></i><span class="hide-menu">Reports</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="StockReport" class="sidebar-link">
-                                        <i class="mdi mdi-note-outline"></i><span class="hide-menu">
+                                        <i class="fas fa-box"></i><span class="hide-menu">
                                             StockReport
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="ProfitAndLoss" class="sidebar-link">
-                                        <i class="fas fa-user"></i><span class="hide-menu">
+                                        <i class="fas fa-magic"></i><span class="hide-menu">
                                             Profit&LossReport
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="DamagedProduct" class="sidebar-link">
-                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                        <i class="fas fa-database"></i><span class="hide-menu">
                                             DamagedProductReport
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="StoreRecordReports" class="sidebar-link">
-                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                        <i class="fas fa-bolt"></i><span class="hide-menu">
                                             StoreRecordReport
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="SaleInvoice" class="sidebar-link">
-                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                        <i class="fas fa-balance-scale"></i><span class="hide-menu">
                                             SaleInvoice
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="TotalSale" class="sidebar-link">
-                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                        <i class="fas fa-comments"></i><span class="hide-menu">
                                             TotalSale
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="HighselingArea" class="sidebar-link">
-                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                        <i class="fas fa-arrow-circle-up"></i><span class="hide-menu">
                                             HighSaleReprts
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="LowselingArea" class="sidebar-link">
-                                        <i class="fas fa-low-vision"></i><span class="hide-menu">
+                                        <i class="fas fa-arrow-circle-down"></i><span class="hide-menu">
                                             LowSaleReprts
                                         </span>
                                     </a>
@@ -162,7 +176,7 @@
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a asp-controller="CompanyDetails" asp-action="Index" class="sidebar-link">
-                                        <i class="mdi mdi-note-outline"></i><span class="hide-menu">
+                                        <i class="fas fa-code"></i><span class="hide-menu">
                                             CompanyDetail
                                         </span>
                                     </a>
@@ -182,16 +196,15 @@
                 </nav>
             </div>
         </aside>
-      
+
         <div class="page-wrapper">
-           
+
             @RenderBody()
             <footer class="footer text-center bottom-0">
                 All Rights Reserved by University of sialkot. Designed and Developed by <a href="#">Chain Store System</a>
             </footer>
         </div>
     </div>
-
     <script src="~/Admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="~/Admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
@@ -207,12 +220,6 @@
     <script src="~/Admin/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="~/Admin/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="~/Admin/dist/js/pages/chart/chart-page-init.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#MyTable").dataTable();
-        }
-        );
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
