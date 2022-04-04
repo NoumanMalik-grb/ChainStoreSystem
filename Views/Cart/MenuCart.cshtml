@@ -1,4 +1,4 @@
-﻿@model ChainStoreSystem.Models.Product
+﻿@model ChainStoreSystem.Models.Multimodelclass
 @using ChainStoreSystem.Helpers
 @using Microsoft.AspNetCore.Http;
 @inject IHttpContextAccessor HttpContextAccessor
@@ -13,9 +13,10 @@
     decimal Totalbill = 0;
 }
 
+
 <br />
 <div class="container">
-    <div class="row">
+    <div class="row" id="PrintArea">
         <div class="col-8 col-sm-8 col-lg-8 col-md-8">
             <table class="table table-borderless table-responsive col-12">
                 <thead class="table-primary">
@@ -31,6 +32,7 @@
                 </thead>
                 <tbody>
                     @{ int i = 1; }
+
                     @{ List<Product> products = SessionHelper.GetObjectFromJson<List<Product>>(Context.Session, "Plistcart"); }
 
                     @if (products != null)
@@ -61,8 +63,8 @@
                                     <h5>@(decimal.Parse(item.Product_Sale_Price.ToString())*int.Parse(item.Product_Quantity.ToString()))</h5>
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Remove","Cart",new { RowNo=row} )" class="btn btn-danger">
-                                        <i class="fa fa-window-close" style="font-size: 25px;"></i>
+                                    <a href="@Url.Action("Remove","Cart",new { RowNo=row} )" class="btn btn-danger fas fa-magic">
+
                                     </a>
                                 </td>
                             </tr>
@@ -91,8 +93,10 @@
                     </tr>
                 </tbody>
             </table>
+
+            <br />
             <div class="row">
-                <a href="@Url.Action("Index","Customer")" class="btn btn-danger" style="margin-left:2%;color:cadetblue">Continue Shopping</a>&nbsp;
+                <a href="@Url.Action("Index","Customer")" class="btn btn-danger" style="margin-left:2%;">Continue Shopping</a>&nbsp;
                 @if (products != null)
                 {
                     <div>
@@ -100,11 +104,29 @@
                     </div>
                 }
             </div>
-            
+
+        </div>
+        <div class="col-sm-4 col-md-4 col-xl-4 col-lg-4">
+
+            <form asp-action="PayNo" asp-controller="Cart" method="post">
+                <label asp-for="O.Order_Name" class="label-control"></label>
+                <input asp-for="O.Order_Name" class="form-control" required />
+                <label asp-for="O.Order_City" class="label-control"></label>
+                <input asp-for="O.Order_City" class="form-control" required />
+                <label asp-for="O.Area" class="label-control"></label>
+                <input asp-for="O.Area" class="form-control" required />
+
+                <div>
+                    <b>Ofline Pay</b>:<input type="radio" value="Ofline Pay" name="O.Order_Status" checked="checked" />
+                    <b>Online Pay</b><input type="radio" value="Online Pay" name="O.Order_Status" />
+                </div>
+                @if (products != null)
+                {
+                    <input type="submit" name="name" value="Submit" class="btn-outline-primary hidden-print" id="btnPrint" />
+                }
+
+            </form>
+
         </div>
     </div>
 </div>
-
-
-
-

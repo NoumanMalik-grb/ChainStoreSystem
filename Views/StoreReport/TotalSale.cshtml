@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<ChainStoreSystem.Models.Order>
 @{
     ViewData["Title"] = "TotalSale";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -18,52 +18,82 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("SaleReport", "Reports", FormMethod.Post))
-{
-<table width="100%" border="1">
-    <tr>
+<div class="row">
+    <div class="col-12">
+        @using (Html.BeginForm("SaleReport", "Reports", FormMethod.Post))
+        {
 
-        <td>Date From:</td>
-        <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
+            <table class="table table-active table-condensed table-responsive table-bordered">
+                <tr>
 
-        <td>Date To:</td>
+                    <td>Date From:</td>
+                    <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
 
-        <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
+                    <td>Date To:</td>
 
-    </tr>
+                    <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
+                    <td style="padding-top:10px">
+                        <button class="btn  btn-block btn-group-lg" style="background-color:#ff6666; color:white">Print Report</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SubCategory</td>
+                    <td class="text-center">
+                        @Html.DropDownList("SubCategory", (IEnumerable<SelectListItem>)ViewBag.SubCategory
+                       as SelectList, "--Select SubCategory--", htmlAttributes: new { @class = "form-control" })
+                    </td>
+                    <td>Product</td>
+                    <td>
+                        @Html.DropDownList("Product", (IEnumerable<SelectListItem>)ViewBag.Product
+                       as SelectList, "--Select Product--", htmlAttributes: new { @class = "form-control" })
+                    </td>
+                    <td style="padding-top:10px">
+                        <button class="btn  btn-block" style="background-color:#ff6666; color:white">Generate Report</button>
+                    </td>
+                </tr>
+            </table>
 
-    <tr>
-        <td style="padding-top:10px"><button class="btn  btn-block" style="background-color:#ff6666; color:white">Generate Report</button></td>
-    </tr>
-</table>
-}
-<br />
-<table border="1" class="table table-responsive table-hover">
-    <tr style="background-color:#ff6666; color:white">
-        <th>Sr #</th>
-        <th>Order ID</th>
-        <th>Order Date</th>
-        <th>Order Type</th>
-        <th> Name</th>
-        <th>status </th>
+        }
+        <br />
+        <table class="table table-responsive">
 
-        <th>Invoice</th>
-    </tr>
-   
-        
-        <tr>
-            <td>sr</td>
-            <td>Order</td>
-            <td>Datr Time</td>
-            <td>Order_Type</td>
+            <tr style="background-color:#ff6666; color:white">
+                <th>Sr #</th>
+                <th>Name</th>
+                <th>Order City</th>
+                <th>Order Type</th>
+                <th>Status</th>
+                <th>Delivery Status </th>
+                <th>Date Time</th>
+                <th>Area</th>
+                <th>Invoice</th>
+            </tr>
+            @{ int i = 1;}
 
-            <td>User_name</td>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @i
+                    </td>
+                    @{i++;}
 
-            <td>Order_status</td>
+                    <td>@item.Order_Name</td>
+                    <td>@item.Order_City</td>
+                    <td>@item.Order_Type</td>
+                    <td>@item.Order_Status</td>
+                    <td>@item.Order_Delivery_Status</td>
+                    <td>@DateTime.Parse(item.Order_DateTime.ToString()).ToLongDateString()</td>
+                    <td>@item.Area</td>
+                    <td>
+                        <a href="@Url.Action("Invoice","Reports")" class="btn btn-outline-primary">Invoice</a>
+                    </td>
+                </tr>
+            }
 
 
-            <td><a href="@Url.Action("Invoice","Reports")" class="btn btn-outline-primary">Invoice</a></td>
-        </tr>
-    
-</table>
+        </table>
+    </div>
+</div>
+
 

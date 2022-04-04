@@ -1,4 +1,5 @@
 ﻿using ChainStoreSystem.Data;
+using ChainStoreSystem.Helpers;
 using ChainStoreSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,19 +27,28 @@ namespace ChainStoreSystem.Controllers
         [HttpPost]
         public IActionResult Login(Account a)
         {
-            Account result = _context.accounts.Where(k => k.UserEmail == a.UserEmail && k.PassWord == a.PassWord).FirstOrDefault();
-            if (result!= null)
+            var result = _context.accounts.Where(k => k.UserEmail == a.UserEmail && k.PassWord == a.PassWord).FirstOrDefault();
+            if (result != null)
             {
-                if (result.Type== "student")
+                if (result.Type == "admin")
                 {
-                    HttpContext.Session.SetString("SessionStudent", JsonConvert.SerializeObject(result));
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "result", result);
                     return RedirectToAction("Index", "Home");
                 }
-                else
+                else if (result.Type == "middleman")
                 {
-                   ViewBag.message = "invalid user name or password";
-                    return View();
+                    return RedirectToAction("Index", "Home");
                 }
+                else if (result.Type == "casheir")
+                {
+                    return RedirectToAction("SalepersonView", "SalePerson");
+                }
+
+            }
+            else
+            {
+                ViewBag.message = "invalid user name or password";
+                return View();
             }
             return View();
         }

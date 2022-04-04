@@ -1,0 +1,121 @@
+﻿@model PaginatedList<ChainStoreSystem.Models.Order>
+@using ChainStoreSystem.Helpers
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@using Newtonsoft.Json
+@{
+    ViewData["Title"] = "SalepersonView";
+    Layout = "~/Views/Shared/_LayoutSaleperson.cshtml";
+    Order db = new Order();
+}
+@{ List<Product> products = SessionHelper.GetObjectFromJson<List<Product>>(Context.Session, "Plistcart"); }
+
+
+<br />
+<div class="text-right" style="overflow: hidden; position: absolute; padding: 20px 0px 0px 0px; right:130px">
+    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("ExportToExcelSheet","SalePerson")'">Export Excel</button>
+</div>
+<br />
+<form>
+
+    <input id="SearchStirng" name="SearchStirng" type="text" value="" />
+    <input type="hidden" id="hforderstatus" name="Id" />
+    <input type="submit" value="search" />
+</form>
+<br />
+<table class="table table-bordered table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl table-responsive-xxl">
+    <thead>
+        <tr>
+            <th>Order No</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Delivery Status</th>
+            <th>Order Area</th>
+            <th>Date Time</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var k in Model.Where(k => k.Order_Type == "sale" & k.Order_Delivery_Status == "pending"))
+        {
+            <tr>
+                <td>@k.Id</td>
+                <td>
+                    <a style="text-decoration:none" asp-action="SalepersonView" asp-route-sortorder="@ViewData["NameSortParm"]">
+                        @k.Order_Name
+                    </a>
+                </td>
+                <td>@k.Order_City</td>
+                <td>@k.Order_Type</td>
+                <td>@k.Order_Status</td>
+                <td>@k.Order_Delivery_Status</td>
+                <td>@k.Area</td>
+                <td>
+                    <a asp-action="SalepersonView" asp-route-sortorder="@ViewData["DateSortParm"]">
+                        @DateTime.Parse(k.Order_DateTime.ToString()).ToLongDateString()
+                    </a>
+                </td>
+                <td colspan="2">
+                    <a href="@Url.Action("Deliverorder","SalePerson" ,new { id=k.Id})" class="btn btn-success">Active</a>&nbsp;
+                    <a href="@Url.Action("CancelOrder","SalePerson" ,new { id=k.Id})" class="btn btn-danger">Cancel</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var PrevDisable = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisable = !Model.HasNextPage ? "disabled" : "";
+    var TotalPgeNo = Model.TotalPages;
+    var CurrentPageNo = Model.PageIndex;
+
+}
+<a asp-action="SalepersonView"
+   asp-route-sortorder="@ViewData["CurrentSort"]" asp-route-pageNumber="@(Model.PageIndex-1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]" class="btn btn-default @PrevDisable">
+    previous
+</a>
+
+<a asp-action="SalepersonView" asp-route-sortorder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex+1)" asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisable">
+    Next
+</a>
+<span>
+    Page No: @CurrentPageNo of @TotalPgeNo
+</span>
+<!--for searching-->
+<script type="text/javascript">
+    $(function () {
+        $("#SearchStirng").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/SalePerson/Autocomplete/',
+                    data: { "prefix": request.term },
+                    type: "POST",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#hforderstatus").val(i.item.val);
+            },
+            minLength: 1
+        });
+    });
+</script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+

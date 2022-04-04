@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ChainStoreSystem.Helpers
 {
@@ -17,6 +13,6 @@ namespace ChainStoreSystem.Helpers
         {
             var value = session.GetString(key);
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
-    }
+        }
     }
 }

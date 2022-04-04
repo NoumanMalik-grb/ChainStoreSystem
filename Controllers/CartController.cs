@@ -27,13 +27,13 @@ namespace ChainStoreSystem.Controllers
         public IActionResult AddTOCart(int id)
         {
             List<Product> listcart;
-            if (SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "listcart")==null)
+            if (SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "Plistcart") == null)
             {
-                listcart=  new List<Product>();
+                listcart = new List<Product>();
             }
             else
             {
-                listcart = SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "listcart");
+                listcart = SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "Plistcart");
             }
             Boolean isProductExist = false;
             foreach (var item in listcart)
@@ -51,16 +51,21 @@ namespace ChainStoreSystem.Controllers
                 listcart.Add(_context.products.Where(p => p.Id == id).FirstOrDefault());
                 listcart[listcart.Count - 1].Product_Quantity = 1;
             }
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "Plistcart", listcart);      
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Plistcart", listcart);
             return View("MenuCart");
         }
-       // for Plus Quantity
+        // for Plus Quantity
         public IActionResult Plus(int RowNo)
         {
             List<Product> listCart;
-            listCart= SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "Plistcart");
+            listCart = SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "Plistcart");
             int P_Id = listCart[RowNo].Id;
-            listCart[RowNo].Product_Quantity++;
+            int? available = _context.orderDetails.
+                Where(x => x.Product_FId == P_Id).Sum(x => x.Quantity);
+            if (available>listCart[RowNo].Product_Quantity)
+            {
+                listCart[RowNo].Product_Quantity++;
+            }
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Plistcart", listCart);
             return RedirectToAction("MenuCart");
         }
@@ -70,7 +75,7 @@ namespace ChainStoreSystem.Controllers
             List<Product> listCart;
             listCart = SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "Plistcart");
             listCart[RowNo].Product_Quantity--;
-            if (listCart[RowNo].Product_Quantity==0)
+            if (listCart[RowNo].Product_Quantity == 0)
             {
                 listCart.RemoveAt(RowNo);
             }
@@ -80,10 +85,9 @@ namespace ChainStoreSystem.Controllers
         //for remove quantity
         public IActionResult Remove(int RowNo)
         {
-            List<Product> listCart;
-            listCart = SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "Plistcart");
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "Plistcart", listCart);
-            listCart.RemoveAt(RowNo);
+            List<Product> RemovelistCart= SessionHelper.GetObjectFromJson<List<Product>>(HttpContext.Session, "Plistcart");
+            RemovelistCart.RemoveAt(RowNo);
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Plistcart", RemovelistCart);
             return RedirectToAction("MenuCart");
         }
         //Order from customer
@@ -95,13 +99,19 @@ namespace ChainStoreSystem.Controllers
         public IActionResult PayNo(Order o)
         {
             o.Order_Type = "sale";
-            o.Order_Delivery_Status = "pending";
-            o.Id = o.Product_Fid;
+            o.Order_Delivery_Status = "Deliver";
+            o.Order_DateTime = System.DateTime.Now;
+            o.Product_Fid = o.Id;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "odersession", o);
-            if (o.Order_Status=="Offline")
+            if (o.Order_Status == "Offline")
             {
                 o.Order_Status = "Offline";
             }
+            //else
+            //{
+            //    return Redirect("http://www.paypall.com");
+            //}
+
             _context.orders.Add(o);
             _context.SaveChanges();
             List<Product> p;
@@ -118,8 +128,8 @@ namespace ChainStoreSystem.Controllers
                 od.Purchase_Price = Convert.ToDecimal(p[i].Product_Purchase_Price);
                 _context.orderDetails.Add(od);
                 _context.SaveChanges();
-                //session null  of product Now
-               
+                
+
             }
             return RedirectToAction("Index", "Customer");
         }

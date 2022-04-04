@@ -1,4 +1,4 @@
-﻿@model ChainStoreSystem.ViewModel.ProductViewModel.ProductImageViewModel 
+﻿@model ChainStoreSystem.ViewModel.ProductViewModel.ProductImageViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -21,6 +21,7 @@
             <td>
                 @Html.EditorFor(model => model.ProductName, new { HtmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                <span asp-validation-for="ProductName" class="text-danger"></span>
             </td>
             <td>
                 @Html.EditorFor(model => model.Product_Picture, new { HtmlAttributes = new { @class = "form-control" } })
@@ -95,7 +96,8 @@
             <td>
                 @Html.DropDownListFor(item => item.AreaId, (IEnumerable<SelectListItem>)ViewBag.Area, "--Select Area--", new { @class = "form-control" })
             </td>
-        </tr>        
+        </tr>
+
         <tr>
             <td>
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -4,44 +4,24 @@
     ViewData["Title"] = "LogIn";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-
+<head>
+    <link href="~/LogInCss/style.css" rel="stylesheet" />
+</head>
 <br />
-<br />
-<div class="container-fluid">
-    <div class="card mx-auto" style="width:500px;background-color:white">
-        <div class="card-body" style="background-color:cadetblue">
-            <br />
-            <div style="height:50px;background-color:cornflowerblue">
-                <i class="fas fa-cart-plus fa-2x" style="margin-left:40%;margin-top:2%"></i>
-                <a href="#" style="color:wheat;text-decoration:none; font-size:30px">
-                    <b>C</b>
-                    SS
-                </a>
+<div class="conatiner-fluid">
+    <form asp-action="Login" asp-controller="Login" method="post">
+        <div id="login-form" class=" justify-content-center">
+            <div id="login">
+                <h3>Login</h3>
             </div>
-            @ViewBag.message
-            <form asp-action="Login" asp-controller="Login" method="post">
-
-                <label><b>Eamil</b></label>  
-                <div class="input-group mb-3">
-                    <input type="email" class="form-control" asp-for="UserEmail" placeholder="Enter Your Email" required style="background-color:aliceblue">
-                    <div class="input-group-append">
-                        <span class="input-group-text fas fa-envelope" style="color:forestgreen"></span>
-                    </div>
-                </div>
-                <label><b>UserPassword</b></label>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" asp-for="PassWord" placeholder="Enter Your Password" required style="background-color:aliceblue">
-                    <div class="input-group-append">
-                        <span class="input-group-text fas fa-eye" style="color:forestgreen"></span>
-                    </div>
-                </div>
-                <input type="checkbox" class="custom-checkbox" /><b>Remember Me?</b>
-
-                <br />
-                <a href="#">Forgot Password</a><br /><br />
-                <input type="submit" value="Login" class="btn btn-primary btn-flickr" style="float-Right" />
-            </form>
+            <p style="font-size:12px">@ViewBag.message</p>
+            <input type="text" asp-for="UserEmail" class="uname" id="input1" placeholder="Username" />
+            <input type="password" asp-for="PassWord" id="input2" placeholder="Password" />
+            <input type="submit" value="Login" class="btn" id="butn" />
         </div>
-    </div>
+    </form>
 </div>
+<video autoplay muted loop> 
+    <source src="~/LogInCss/bg1.mp4">
+</video>
 
