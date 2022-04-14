@@ -18,62 +18,52 @@
         </div>
     </div>
 </div>
-<!--for Total sale Report-->
-<table class="table table-bordered">
-   @using (Html.BeginForm("TotalSale", "StoreReport", FormMethod.Post))
-
-   {
+@using (Html.BeginForm("SaleReport", "Reports", FormMethod.Post))
+{
+<table width="100%" border="1">
     <tr>
+
         <td>Date From:</td>
-        <td><input type="datetime-local" value="@ViewBag.DateFrom" name="DateFrom" class="form-control" /></td>
-        <td>Date To:</td>
-        <td><input type="datetime-local" value="@ViewBag.DateTo" name="DateTo" class="form-control" /></td>
-        <td><input type="submit" id="button1" value="Genrate Reports" /></td>
-    </tr>
-    <tr>
-        <td>Category :</td>
-        <td>
-           @Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Category
-          as SelectList,"--Select SubCategory--",htmlAttributes:new {@class="form-control" })
-        </td>
-        <td>Product :</td>
-        <td>
-            @Html.DropDownList("Product",(IEnumerable<SelectListItem>)ViewBag.Product
-           as SelectList,"--Select Product--",htmlAttributes: new { @class="form-control"})
-        </td> 
-        <td>
-            Export To Excel
-        </td>
-    </tr>
-    }
-</table>
-<br />
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Order No</th>
-            <th> Order Name</th>
-            <th>Order City</th>
-            <th>Order Type</th>
-            <th>Order Status</th>
-            <th>Deliver Status</th>
-            <th>Date Time</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var k in Model)
-        {
-            <tr>
-                <td>@k.Id</td>
-                <td>@k.Order_Name</td>
-                <td>@k.Order_City
-                <td>@k.Order_Type</td>
-                <td>@k.Order_Status</td>
-                <td>@k.Order_Delivery_Status</td>
-                <td>@k.Order_DateTime</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
 
+        <td>Date To:</td>
+
+        <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
+
+    </tr>
+
+    <tr>
+        <td style="padding-top:10px"><button class="btn  btn-block" style="background-color:#ff6666; color:white">Generate Report</button></td>
+    </tr>
+</table>
+}
+<br />
+<table border="1" class="table table-responsive table-hover">
+    <tr style="background-color:#ff6666; color:white">
+        <th>Sr #</th>
+        <th>Order ID</th>
+        <th>Order Date</th>
+        <th>Order Type</th>
+        <th> Name</th>
+        <th>status </th>
+
+        <th>Invoice</th>
+    </tr>
+   
+        
+        <tr>
+            <td>sr</td>
+            <td>Order</td>
+            <td>Datr Time</td>
+            <td>Order_Type</td>
+
+            <td>User_name</td>
+
+            <td>Order_status</td>
+
+
+            <td><a href="@Url.Action("Invoice","Reports")" class="btn btn-outline-primary">Invoice</a></td>
+        </tr>
+    
+</table>
 

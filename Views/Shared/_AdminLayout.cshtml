@@ -1,18 +1,4 @@
-﻿@using ChainStoreSystem.Helpers
-@using Microsoft.AspNetCore.Http;
-@inject IHttpContextAccessor HttpContextAccessor
-@using Newtonsoft.Json
-@using System.Web;
-@{
-    var userinfo = SessionHelper.GetObjectFromJson<Account>(Context.Session, "userinfo");
-
-    if (userinfo == null)
-    {
-        //Response.Redirect("login", "login");
-
-    }
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
     <meta charset="utf-8">
@@ -23,6 +9,8 @@
     <link href="~/Admin/assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <link href="~/Admin/dist/css/style.min.css" rel="stylesheet">
     <link href="~/Admin/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <!--cdn for invoice-->
+    
 </head>
 <body>
     <div class="preloader">
@@ -220,6 +208,8 @@
     <script src="~/Admin/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="~/Admin/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="~/Admin/dist/js/pages/chart/chart-page-init.js"></script>
+    <!--for bootstrap-->
+   
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

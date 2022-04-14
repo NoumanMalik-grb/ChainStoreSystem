@@ -99,7 +99,7 @@ namespace ChainStoreSystem.Controllers
         public IActionResult PayNo(Order o)
         {
             o.Order_Type = "sale";
-            o.Order_Delivery_Status = "Deliver";
+            o.Order_Delivery_Status = "Pending";
             o.Order_DateTime = System.DateTime.Now;
             o.Product_Fid = o.Id;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "odersession", o);
@@ -128,7 +128,7 @@ namespace ChainStoreSystem.Controllers
                 od.Purchase_Price = Convert.ToDecimal(p[i].Product_Purchase_Price);
                 _context.orderDetails.Add(od);
                 _context.SaveChanges();
-                
+                HttpContext.Session.Remove("Plistcart");
 
             }
             return RedirectToAction("Index", "Customer");
