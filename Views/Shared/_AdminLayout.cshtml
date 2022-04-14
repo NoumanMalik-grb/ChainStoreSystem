@@ -1,18 +1,4 @@
-﻿@using ChainStoreSystem.Helpers
-@using Microsoft.AspNetCore.Http;
-@inject IHttpContextAccessor HttpContextAccessor
-@using Newtonsoft.Json
-@using System.Web;
-@{
-    var userinfo = SessionHelper.GetObjectFromJson<Account>(Context.Session, "userinfo");
-
-    if (userinfo == null)
-    {
-        //Response.Redirect("login", "login");
-
-    }
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
     <meta charset="utf-8">
