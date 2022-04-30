@@ -9,6 +9,7 @@ namespace ChainStoreSystem.Models
     {
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
+        public int? SubCategory { get; set; }
         public int? Product { get; set; }
     }
 }

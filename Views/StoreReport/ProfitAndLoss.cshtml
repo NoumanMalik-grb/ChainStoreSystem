@@ -1,7 +1,10 @@
-﻿
+﻿@model IEnumerable<ChainStoreSystem.Models.Order>
 @{
     ViewData["Title"] = "ProfitAndLoss";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    decimal? netProfit = 0;
 }
 <div class="page-breadcrumb">
     <div class="row">
@@ -18,51 +21,90 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("SaleReport", "Reports", FormMethod.Post))
+@using (Html.BeginForm("ProfitAndLoss", "StoreReport", FormMethod.Post))
 {
-    <table width="100%" border="1">
+    <table class="table">
         <tr>
-
-            <td>Date From:</td>
-            <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
-
-            <td>Date To:</td>
-
-            <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
-
+            <td>DateFrom :</td>
+            <td>
+                <input type="datetime-local" name="DateFrom" value="@ViewBag.DateFrom" class="form-control" />
+            </td>
+            <td>Date To :</td>
+            <td>
+                <input type="datetime-local" name="DateTo" value="@ViewBag.DateTo" class="form-control" />
+            </td>
+            <td>
+                <input type="submit" value="Genrate Report" />
+            </td>
         </tr>
-
         <tr>
-            <td style="padding-top:10px"><button class="btn  btn-block" style="background-color:#ff6666; color:white">Generate Report</button></td>
+            <td>SubCategory :</td>
+            <td>
+                @Html.DropDownList("SubCategory", (IEnumerable<SelectListItem>)ViewBag.SubCategory, "Select Subcategory", new { @class = "form-control" })
+            </td>
+            <td>Product :</td>
+            <td>
+                @Html.DropDownList("Product", (IEnumerable<SelectListItem>)ViewBag.Product, "Select Product", new { @class = "form-control" })
+            </td>
+            <td>
+                Export To Excel
+            </td>
         </tr>
     </table>
 }
 <br />
-<table border="1" class="table table-responsive table-hover">
-    <tr style="background-color:#ff6666; color:white">
-        <th>Sr #</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Sale Price</th>
-        <th>Purchase Price </th>
-        <th>Action</th>
-    </tr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sr#</th>
+            <th>Order No</th>
+            <th>Customer Name</th>
+            <th>Sale Price</th>
+            <th>Purchase Price</th>
+            <th>Profit & Loss</th>
+            <th>Date Time</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int k = 1; }
+        @foreach (var malik in Model)
+        {
+            <tr>
+                <td>@k</td>
+                @{k++;}
+                <td>@malik.Id</td>
+                <td>@malik.Order_Name</td>
+                <td>@malik.Order_Detail.Sum(n => n.Sale_Price * Math.Abs(Convert.ToInt32(n.Quantity)))</td>
+                <td>@malik.Order_Detail.Sum(k => k.Purchase_Price * Math.Abs(Convert.ToInt32(k.Quantity)))</td>
+                <td>
+                    @(malik.Order_Detail.Sum(n => n.Sale_Price * Math.Abs(Convert.ToInt32(n.Quantity)))
+                          - malik.Order_Detail.Sum(n => n.Purchase_Price * n.Quantity)
+                     )
+                </td>
+                <td>
+                    @malik.Order_DateTime
+                </td>
+                <td>
+                    <a href="@Url.Action("SaleInvoice","StoreReport", new  {id=malik.Id })">view Invoice</a>
+                </td>
+            </tr>
 
-
-    <tr>
-        <td>Sr #</td>
-        <td>Name</td>
-        <td>Description</td>
-        <td>Status</td>
-        <td>Sale Price</td>
-        <td>Purchase Price</td>
-
-
-        <td><a href="#" class="btn btn-outline-primary">Invoice</a></td>
-    </tr>
-
+            netProfit += (malik.Order_Detail.Sum(n => n.Sale_Price * Math.Abs(Convert.ToInt32(n.Quantity)))
+            - malik.Order_Detail.Sum(n => n.Purchase_Price * n.Quantity));
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Net Profit</td>
+            <td>@netProfit</td>
+            <td></td>
+        </tr>
+    </tbody>
 </table>
+
 
 
 

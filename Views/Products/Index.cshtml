@@ -23,78 +23,84 @@
 <p>
     <a asp-action="Create" class="btn btn-primary" style="margin-left:2%">Add Item</a>
 </p>
-<table  class="table table-hover table-responsive table-bordered text-center">
-    <thead>
-        <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
-            <th>
-                Sr#
-            </th>
-            <th>
-              Name
-            </th>
-            <th>
-             Picture
-            </th>
-            
-            <th>
-               Sale Price
-            </th>
-            <th>
-               Purchase Price
-            </th>
-            <th>
-              Status
-            </th>
-            <th>
-               Discount
-            </th>
-            <th>
-                Area name
-            </th>
-                <th>
-                 SubCateGory Name
-                </th>  
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{int k = 1; }
-@foreach (var item in Model) {
-        <tr class="text-capitalize ">
-            <td>
-                @k
-                @{ k++;}
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                <img src="~/StoreImage/@item.Product_Picture"  style="height:100px; width:100px" />
-            </td>           
-            <td>
-                @Html.DisplayFor(modelItem => item.Product_Sale_Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product_Purchase_Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product_Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product_Discount)
-            </td>  
-            <td>
-                @Html.DisplayFor(modelitem=>item.Areas.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem=>item.SubCategorys.SubCategoryName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="fas fa-edit text-primary"></a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="fas fa-eye text-success"></a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="fas fa-trash text-danger"></a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
+        <table class="table ">
+            <thead>
+                <tr class="text-uppercase font-weight-bold" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color:white;background-color:cadetblue">
+                    <th>
+                        Sr#
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Picture
+                    </th>
+
+                    <th>
+                        Sale Price
+                    </th>
+                    <th>
+                        Purchase Price
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Discount
+                    </th>
+                    <th>
+                        Area name
+                    </th>
+                    <th>
+                        SubCateGory Name
+                    </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int k = 1; }
+                @foreach (var item in Model)
+                {
+                    <tr class="text-capitalize ">
+                        <td>
+                            @k
+                            @{ k++;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            <img src="~/StoreImage/@item.Product_Picture" style="height:100px; width:100px" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product_Sale_Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product_Purchase_Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product_Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product_Discount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelitem => item.Areas.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelitem => item.SubCategorys.SubCategoryName)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="fas fa-edit text-primary"></a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="fas fa-eye text-success"></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="fas fa-trash text-danger"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

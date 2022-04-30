@@ -38,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var k in Model.Where(k => k.Order_Type == "sale" & k.Order_Delivery_Status == "pending"))
+        @foreach (var k in Model.Where(k => k.Order_Type == "sale" & k.Order_Delivery_Status == "Pending"))
         {
             <tr>
                 <td>@k.Id</td>

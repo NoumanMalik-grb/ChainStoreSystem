@@ -25,14 +25,15 @@ namespace ChainStoreSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<ChainStoreDbContext>(option => 
+            services.AddDbContextPool<ChainStoreDbContext>(option =>
             option.UseSqlServer(Configuration.
             GetConnectionString("ChainStoreSystem")));
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.IdleTimeout = TimeSpan.FromDays(1);
             });
+            //services.AddDbContextPool<ChainStoreDbContext>(option => option.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("ChainStoreSystem")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

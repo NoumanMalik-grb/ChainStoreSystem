@@ -18,52 +18,78 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("SaleReport", "Reports", FormMethod.Post))
+@using (Html.BeginForm("TotalSale", "StoreReport", FormMethod.Post))
 {
-<table width="100%" border="1">
-    <tr>
-
-        <td>Date From:</td>
-        <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
-
-        <td>Date To:</td>
-
-        <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
-
-    </tr>
-
-    <tr>
-        <td style="padding-top:10px"><button class="btn  btn-block" style="background-color:#ff6666; color:white">Generate Report</button></td>
-    </tr>
-</table>
-}
-<br />
-<table border="1" class="table table-responsive table-hover">
-    <tr style="background-color:#ff6666; color:white">
-        <th>Sr #</th>
-        <th>Order ID</th>
-        <th>Order Date</th>
-        <th>Order Type</th>
-        <th> Name</th>
-        <th>status </th>
-
-        <th>Invoice</th>
-    </tr>
-   
-        
+    <table class="table">
         <tr>
-            <td>sr</td>
-            <td>Order</td>
-            <td>Datr Time</td>
-            <td>Order_Type</td>
 
-            <td>User_name</td>
+            <td>Date From:</td>
+            <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
 
-            <td>Order_status</td>
+            <td>Date To:</td>
 
-
-            <td><a href="@Url.Action("Invoice","Reports")" class="btn btn-outline-primary">Invoice</a></td>
+            <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
+            <td>
+                <input type="submit" value="Genrate Report"/>
+            </td>
         </tr>
-    
+
+        <tr>
+        </tr>
+        <tr>
+            <td>
+                SubCategory :
+            </td>
+            <td>
+                @Html.DropDownList("SubCategory", (IEnumerable<SelectListItem>)ViewBag.SubCategory, "Select SubCategory", new { @class = "form-control" })
+            </td>
+            <td>
+                Product :
+            </td>
+            <td>
+                @Html.DropDownList("Product", (IEnumerable<SelectListItem>)ViewBag.Product, "Select Product", new { @class = "form-control" })
+            </td>
+            <td>
+                <button>Export TO Excel</button>
+            </td>
+        </tr>
+    </table>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sr#</th>
+            <th>Order No</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Delivery Status</th>
+            <th>DateTime</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int k = 1;}
+        @foreach (var i in Model)
+        {
+        <tr>
+            <td>@k</td>
+            @{ k++; }
+            <td>@i.Id</td>
+            <td>@i.Order_Name</td>
+            <td>@i.Order_City</td>
+            <td>@i.Order_Type</td>
+            <td>@i.Order_Status</td>
+            <td>@i.Order_Delivery_Status</td>
+            <td>@i.Order_DateTime</td>
+            <td>
+                <a href="@Url.Action("Saleinvoice","StoreReport",new  {id=i.Id })">Invoice</a>
+            </td>
+        </tr>
+          
+
+        }
+    </tbody>
 </table>
 

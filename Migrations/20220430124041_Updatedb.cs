@@ -2,7 +2,7 @@
 
 namespace ChainStoreSystem.Migrations
 {
-    public partial class AddDefaultMigration : Migration
+    public partial class Updatedb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

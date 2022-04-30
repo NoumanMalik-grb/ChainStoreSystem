@@ -101,7 +101,7 @@ namespace ChainStoreSystem.Controllers
             o.Order_Type = "sale";
             o.Order_Delivery_Status = "Pending";
             o.Order_DateTime = System.DateTime.Now;
-            o.Product_Fid = o.Id;
+            //o.Product_Fid = o.Id;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "odersession", o);
             if (o.Order_Status == "Offline")
             {

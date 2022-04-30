@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -41,6 +42,9 @@ namespace ChainStoreSystem.Models
         [ForeignKey("Area_FId")]
         public int Area_FId { get; set; }
         public virtual Area Areas { get; set; }
+        // order detail with product
+        public virtual ICollection<OrderDetail> GetOrderDetails { get; set; }
+        
         
     }
 }

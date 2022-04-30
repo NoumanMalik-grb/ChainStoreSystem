@@ -30,8 +30,9 @@ namespace ChainStoreSystem.Controllers
             var result = _context.accounts.Where(k => k.UserEmail == a.UserEmail && k.PassWord == a.PassWord).FirstOrDefault();
             if (result != null)
             {
-                if (result.Type== "student")
+                if (result.Type== "admin")
                 {
+                    //SessionHelper.SetObjectAsJson(HttpContext.Session,"username", result);
                     return RedirectToAction("Index", "Home");
                 }
                 else if (result.Type == "casheir")

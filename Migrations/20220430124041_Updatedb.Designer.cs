@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChainStoreSystem.Migrations
 {
     [DbContext(typeof(ChainStoreDbContext))]
-    [Migration("20220214222431_AddMigrationForOdDetailQuantityConverStringToInt")]
-    partial class AddMigrationForOdDetailQuantityConverStringToInt
+    [Migration("20220430124041_Updatedb")]
+    partial class Updatedb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,15 +217,7 @@ namespace ChainStoreSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Product_Fid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductsId");
 
                     b.ToTable("orders");
                 });
@@ -380,15 +372,6 @@ namespace ChainStoreSystem.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ChainStoreSystem.Models.Order", b =>
-                {
-                    b.HasOne("ChainStoreSystem.Models.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("ProductsId");
-
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("ChainStoreSystem.Models.OrderDetail", b =>
                 {
                     b.HasOne("ChainStoreSystem.Models.Area", "Area")
@@ -396,11 +379,11 @@ namespace ChainStoreSystem.Migrations
                         .HasForeignKey("AreaId");
 
                     b.HasOne("ChainStoreSystem.Models.Order", "Orders")
-                        .WithMany()
+                        .WithMany("Order_Detail")
                         .HasForeignKey("OrdersId");
 
                     b.HasOne("ChainStoreSystem.Models.Product", "Products")
-                        .WithMany()
+                        .WithMany("GetOrderDetails")
                         .HasForeignKey("ProductsId");
 
                     b.Navigation("Area");
@@ -432,6 +415,16 @@ namespace ChainStoreSystem.Migrations
                         .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ChainStoreSystem.Models.Order", b =>
+                {
+                    b.Navigation("Order_Detail");
+                });
+
+            modelBuilder.Entity("ChainStoreSystem.Models.Product", b =>
+                {
+                    b.Navigation("GetOrderDetails");
                 });
 #pragma warning restore 612, 618
         }
