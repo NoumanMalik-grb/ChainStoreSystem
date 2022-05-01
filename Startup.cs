@@ -31,6 +31,7 @@ namespace ChainStoreSystem
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
                 options.IdleTimeout = TimeSpan.FromDays(1);
             });
             //services.AddDbContextPool<ChainStoreDbContext>(option => option.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("ChainStoreSystem")));

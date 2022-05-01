@@ -23,72 +23,131 @@
     <table class="table">
         <tr>
 
-            <td>Date From:</td>
-            <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
+                    <td>Date From:</td>
+                    <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
 
-            <td>Date To:</td>
+                    <td>Date To:</td>
 
-            <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
-            <td>
-                <input type="submit" value="Genrate Report"/>
-            </td>
-        </tr>
+                    <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
+                    <td style="padding-top:10px">
+                        <button class="btn  btn-block btn-group-lg" style="background-color:#ff6666; color:white">Print Report</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SubCategory</td>
+                    <td class="text-center">
+                        @Html.DropDownList("SubCategory", (IEnumerable<SelectListItem>)ViewBag.SubCategory
+                       as SelectList, "--Select SubCategory--", htmlAttributes: new { @class = "form-control" })
+                    </td>
+                    <td>Product</td>
+                    <td>
+                        @Html.DropDownList("Product", (IEnumerable<SelectListItem>)ViewBag.Product
+                       as SelectList, "--Select Product--", htmlAttributes: new { @class = "form-control" })
+                    </td>
+                    <td style="padding-top:10px">
+                        <button class="btn  btn-block" style="background-color:#ff6666; color:white">Generate Report</button>
+                    </td>
+                </tr>
+            </table>
 
-        <tr>
-        </tr>
-        <tr>
-            <td>
-                SubCategory :
-            </td>
-            <td>
-                @Html.DropDownList("SubCategory", (IEnumerable<SelectListItem>)ViewBag.SubCategory, "Select SubCategory", new { @class = "form-control" })
-            </td>
-            <td>
-                Product :
-            </td>
-            <td>
-                @Html.DropDownList("Product", (IEnumerable<SelectListItem>)ViewBag.Product, "Select Product", new { @class = "form-control" })
-            </td>
-            <td>
-                <button>Export TO Excel</button>
-            </td>
-        </tr>
-    </table>
-}
-<table class="table">
+        }
+        <br />
+        <table class="table table-responsive">
+
+            <tr style="background-color:#ff6666; color:white">
+                <th>Sr #</th>
+                <th>Name</th>
+                <th>Order City</th>
+                <th>Order Type</th>
+                <th>Status</th>
+                <th>Delivery Status </th>
+                <th>Date Time</th>
+                <th>Area</th>
+                <th>Invoice</th>
+            </tr>
+            @{ int i = 1;}
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @i
+                    </td>
+                    @{i++;}
+
+                    <td>@item.Order_Name</td>
+                    <td>@item.Order_City</td>
+                    <td>@item.Order_Type</td>
+                    <td>@item.Order_Status</td>
+                    <td>@item.Order_Delivery_Status</td>
+                    <td>@DateTime.Parse(item.Order_DateTime.ToString()).ToLongDateString()</td>
+                    <td>@item.Area</td>
+                    <td>
+                        <a href="@Url.Action("Invoice","Reports")" class="btn btn-outline-primary">Invoice</a>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+</div>
+
+=========
+<!--for Total sale Report-->
+<table class="table table-bordered">
+   @using (Html.BeginForm("TotalSale", "StoreReport", FormMethod.Post))
+
+   {
+    <tr>
+        <td>Date From:</td>
+        <td><input type="datetime-local" value="@ViewBag.DateFrom" name="DateFrom" class="form-control" /></td>
+        <td>Date To:</td>
+        <td><input type="datetime-local" value="@ViewBag.DateTo" name="DateTo" class="form-control" /></td>
+        <td><input type="submit" id="button1" value="Genrate Reports" /></td>
+    </tr>
+    <tr>
+        <td>Category :</td>
+        <td>
+           @Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Category
+          as SelectList,"--Select SubCategory--",htmlAttributes:new {@class="form-control" })
+        </td>
+        <td>Product :</td>
+        <td>
+            @Html.DropDownList("Product",(IEnumerable<SelectListItem>)ViewBag.Product
+           as SelectList,"--Select Product--",htmlAttributes: new { @class="form-control"})
+        </td> 
+        <td>
+            Export To Excel
+        </td>
+    </tr>
+    }
+</table>
+<br />
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>Sr#</th>
             <th>Order No</th>
-            <th>Name</th>
-            <th>City</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Delivery Status</th>
-            <th>DateTime</th>
-            <th>Action</th>
+            <th> Order Name</th>
+            <th>Order City</th>
+            <th>Order Type</th>
+            <th>Order Status</th>
+            <th>Deliver Status</th>
+            <th>Date Time</th>
         </tr>
     </thead>
     <tbody>
-        @{ int k = 1;}
-        @foreach (var i in Model)
+        @foreach (var k in Model)
         {
-        <tr>
-            <td>@k</td>
-            @{ k++; }
-            <td>@i.Id</td>
-            <td>@i.Order_Name</td>
-            <td>@i.Order_City</td>
-            <td>@i.Order_Type</td>
-            <td>@i.Order_Status</td>
-            <td>@i.Order_Delivery_Status</td>
-            <td>@i.Order_DateTime</td>
-            <td>
-                <a href="@Url.Action("Saleinvoice","StoreReport",new  {id=i.Id })">Invoice</a>
-            </td>
-        </tr>
-          
-
+            <tr>
+                <td>@k.Id</td>
+                <td>@k.Order_Name</td>
+                <td>@k.Order_City
+                <td>@k.Order_Type</td>
+                <td>@k.Order_Status</td>
+                <td>@k.Order_Delivery_Status</td>
+                <td>@k.Order_DateTime</td>
+            </tr>
         }
     </tbody>
 </table>

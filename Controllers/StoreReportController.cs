@@ -193,7 +193,7 @@ namespace ChainStoreSystem.Controllers
             var malik = _context.orders.Where(x => x.Order_Type == "sale" & x.Order_DateTime >= salerep.DateFrom &
             x.Order_DateTime <= salerep.DateTo & od.Contains(x.Id)).OrderByDescending(x => x.Id).ToList();
             return View(malik);
-
+>>>>>>>>> Temporary merge branch 2
         }
     }
 }
