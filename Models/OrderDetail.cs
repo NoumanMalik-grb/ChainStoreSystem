@@ -14,7 +14,7 @@ namespace ChainStoreSystem.Models
         public int Id { get; set; }
         [Required]
         public decimal Sale_Price { get; set; }
-        [Required]
+        [Required]  
         public decimal Purchase_Price { get; set; }
         [Required]
         public int Quantity { get; set; }

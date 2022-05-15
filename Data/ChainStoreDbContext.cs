@@ -1,15 +1,10 @@
 ﻿using ChainStoreSystem.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace ChainStoreSystem.Data
 {
-    public class ChainStoreDbContext:DbContext
+    public class ChainStoreDbContext : DbContext
     {
-        public ChainStoreDbContext(DbContextOptions<ChainStoreDbContext> options):base(options)
+        public ChainStoreDbContext(DbContextOptions<ChainStoreDbContext> options) : base(options)
         {
 
         }
