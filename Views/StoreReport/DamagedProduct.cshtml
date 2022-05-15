@@ -1,8 +1,71 @@
-﻿
+﻿@model IEnumerable<ChainStoreSystem.Models.DamagedProduct>
 @{
     ViewData["Title"] = "DamagedProduct";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<h1 class="text-center" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Damaged Products</h1>
+<hr />
+@using (Html.BeginForm("DamagedProduct", "StoreReport", FormMethod.Post))
+{
+    <table class="table table-bordered">
+        <tr>
+            <td>DateFrom :</td>
+            <td>
+                <input name="DateFrom" value="@ViewBag.DateFrom" type="datetime-local" class="form-control" />
+            </td>
+            <td>DateTo :</td>
+            <td>
+                <input name="DateTo" value="@ViewBag.DateTo" type="datetime-local" class="form-control" />
+            </td>
+            <td>
+                <input type="submit" value="Genrate Reports" />
+            </td>
+        </tr>
+        <tr>
+            <td>Arae :</td>
+            <td>
+                @Html.DropDownList("GetArea", (IEnumerable<SelectListItem>)ViewBag.GetArea, "Select Area", new { @class = "form-control" })
+            </td>
+            <td>Product :</td>
+            <td>
+                @Html.DropDownList("GetProduct", (IEnumerable<SelectListItem>)ViewBag.GetProduct, "Select Product", new { @class = "form-control" })
+            </td>
+            <td>
+                Export To Excel
+            </td>
+        </tr>
+    </table>
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th> Name</th>
+            <th>Product Type</th>
+            <th>DateTime</th>
+            <th>Product Name</th>
+            <th>Area Name</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @{ int r =1; }
+        
+        @foreach (var item in Model)
+        {
+         <tr>
+             <td>@r</td>
+             @{ r = r + 1; }
+             <td>@item.Name</td>
+             <td>@item.Type</td>
+             <td>@item.Products.ProductName</td>
+             <td>@item.Areas.Name</td>
+         </tr>
+        }
 
-<h1>DamagedProduct</h1>
+    </tbody>
+</table>
+<br />
+
+
+
 

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace ChainStoreSystem.Models
 {
-    public class FilterModel
+    public class FilterDamagedProduct
     {
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
-        public int? SubCategory { get; set; }
-        public int? Product { get; set; }
+        public int? GetVArea { get; set; }
+        public int? GetVProduct { get; set; }
     }
 }

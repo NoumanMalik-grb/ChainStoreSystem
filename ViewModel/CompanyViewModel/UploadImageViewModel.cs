@@ -9,8 +9,6 @@ namespace ChainStoreSystem.ViewModel.CompanyViewModel
 {
     public class UploadImageViewModel
     {
-        [Required]
-        [Display(Name ="Image")]
         public IFormFile CompanyLogo { get; set; }
     }
 }

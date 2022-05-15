@@ -98,10 +98,12 @@ namespace ChainStoreSystem.Controllers
         }
         public IActionResult PayNo(Order o)
         {
+            DateTime dt = DateTime.Now;
             o.Order_Type = "sale";
             o.Order_Delivery_Status = "Pending";
             o.Order_DateTime = System.DateTime.Now;
-            o.Product_Fid = o.Id;
+            o.Order_Year = dt.Year.ToString();
+            //o.Product_Fid = o.Id;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "odersession", o);
             if (o.Order_Status == "Offline")
             {
@@ -129,7 +131,6 @@ namespace ChainStoreSystem.Controllers
                 _context.orderDetails.Add(od);
                 _context.SaveChanges();
                 HttpContext.Session.Remove("Plistcart");
-
             }
             return RedirectToAction("Index", "Customer");
         }

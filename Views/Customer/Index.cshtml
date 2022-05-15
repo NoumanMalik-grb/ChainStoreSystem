@@ -4,10 +4,14 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <head>
-    @*@<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <style>
         .btn-purple {
             color: #fff;
@@ -31,6 +35,44 @@
                 width: 80%
             }
     </style>
+    <!-- Start code for bootstrap modal-->
+    <script>
+        jQuery(document).ready(function ($) {
+            //$('#Mytable').DataTable({
+            //    searching: false,
+            //    responsive: true,
+            //    "autoWidth": true,
+            //});
+
+
+
+            var table = $('#Mytable').DataTable();
+            $('#Mytable tbody').on('click', 'tr', function () {
+                console.log(table.row(this).data());
+                console.log(table.row(this).data()[5]);
+                var img = table.row(this).data()[5];
+                var element = document.createElement("div");
+                element.innerHTML = img;
+                var images = element.getElementsByTagName("img");
+                let imgpath = images[0].src;
+                console.log(images[0].src);
+                $(".modal-body div span").text("");
+                $("#Sr span").text(table.row(this).data()[0]);
+                $("#pid").val(table.row(this).data()[1]);
+                $(".name span").text(table.row(this).data()[2]);
+                $(".description span").text(table.row(this).data()[3]);
+                $(".price span").text(table.row(this).data()[4]);
+                $("#picture span").text(table.row(this).data()[5]);
+                var img = document.getElementById("picture");
+                img.src = imgpath;
+                $(".discount span").text(table.row(this).data()[6]);
+                $(".expdate span").text(table.row(this).data()[7]);
+                $("#mymodal").modal("show");
+            });
+       });
+
+    </script>
+    <!-- End code for bootstrap modal-->
 </head>
 
 <br />
@@ -133,7 +175,3 @@
     </div>
 </div>
 <!-- /.modal -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

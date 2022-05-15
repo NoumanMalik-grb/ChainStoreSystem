@@ -22,5 +22,19 @@ namespace ChainStoreSystem.Data
         public DbSet<CompanyDetail> companyDetails { get; set; }
         public DbSet<Order> orders { get; set; }
         public DbSet<OrderDetail> orderDetails { get; set; }
+
+        // custom modelbuilder
+        //protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        //{
+        //    // order configuration
+        //    modelBuilder.Entity<Order>()
+        //       .HasMany(o => o.OrderDetails)
+        //       .WithOne(k => k.Orders);
+        //    //for product configration
+        //    modelBuilder.Entity<Product>()
+        //        .HasMany(k => k.OrderDetails)
+        //        .WithOne(n => n.Products);
+
+        //}
     }
 }

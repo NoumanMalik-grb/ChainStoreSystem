@@ -9,8 +9,6 @@ namespace ChainStoreSystem.ViewModel.AccountViewModel
 {
     public class UploadImagAccountViewModel
     {
-        [Required]
-        [Display(Name ="Image")]
         public IFormFile User_Picture { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ChainStoreSystem.Models.Order>
+﻿@model IEnumerable<ChainStoreSystem.Models.ProductViewModel>
 @{
     ViewData["Title"] = "StockReport";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -7,28 +7,73 @@
 <h1 class="text-center" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">StockReport</h1>
 <hr />
 @using (Html.BeginForm("StockReport", "StoreReport", FormMethod.Post))
-{<table class="table table-responsive">
+{
+    <table class="table">
         <tr>
-            <td>Date From:</td>
-            <td><input name="DateFrom" type="datetime-local" value=@ViewBag.DateFrom class="form-control" /></td>
-            <td>Date To:</td>
-            <td><input name="DateTo" type="datetime-local" value=@ViewBag.DateTo class="form-control" /></td>
-
+            <td>DateFrom :</td>
+            <td>
+                <input name="DateFrom" readonly value="@ViewBag.DateFrom" type="datetime-local" class="form-control"/>
+            </td>
+            <td>DateTo :</td>
+            <td>
+               <input name="DateTo" value="@ViewBag.DateTo" type="datetime-local" class="form-control" />
+            </td>
+            <td>
+                <input  type="submit" value="Genrate Reports"/>
+            </td>
         </tr>
         <tr>
-            <td>category:</td>
+            <td>SubCategory :</td>
             <td>
-                @Html.DropDownList("SubCategory", null, "Salect category", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("SubCategory", (IEnumerable<SelectListItem>)ViewBag.SubCategory, "Select SubCategory", new { @class = "form-control" })
             </td>
-            <td>Product:</td>
+            <td>Product :</td>
             <td>
-                @Html.DropDownList("Product", null, "Salect Poduct", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("Product", (IEnumerable<SelectListItem>)ViewBag.Product, "Select Product", new { @class = "form-control" })
             </td>
             <td>
-                <button class="btn  btn-block" style="background-color:#ff6666; color:white">Generate Report</button>
+                Export To Excel
             </td>
         </tr>
     </table>
 }
+<br />
+<table class="table">
+    <thead>
+       
+        <tr>
+             <th>Sr#</th>
+            <th>Product Name</th>
+            <th>Product Picture</th>
+            <th>Discription_Max</th>
+            <th>Sale_Price</th>
+            <th>Purchase_Price</th>
+            <th>Product_Status </th>
+            <th>Available Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{ int k = 1;}
+        @foreach (var t in Model)
+        {
+            <tr>
+                <td>@k</td>
+                @{ k++; }
+                <td>@t.ProductName</td>
+                <td>
+                    <img  src="~/StoreImage/@t.Product_Picture" style="height:50px;width:80px" class="img-thumbnail"/>
+                </td>
+                <td>@t.Product_Discription_Max</td>
+                <td>@t.Product_Sale_Price</td>
+                <td>@t.Product_Purchase_Price</td>
+                <td>@t.Product_Status</td>
+                <td>@t.ProOrderDetails.Where(x=>x.Orders.Order_DateTime<=Convert.ToDateTime(ViewBag.DateTo)).Sum(x=>x.Quantity)</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
 
 

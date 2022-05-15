@@ -24,7 +24,7 @@ namespace ChainStoreSystem.Controllers
             ViewData["CurrentFilter"] = SearchStirng;
             var CuOrder = from od in _context.orders select od;
             
-            if (!string.IsNullOrEmpty(SearchStirng))
+            if (!string.IsNullOrEmpty(SearchStirng)) 
             {
                 CuOrder = CuOrder.Where(k => k.Id.ToString().Contains(SearchStirng));
             }

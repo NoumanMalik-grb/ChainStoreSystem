@@ -8,42 +8,33 @@ using System.Threading.Tasks;
 
 namespace ChainStoreSystem.Models
 {
-    public class Product
+    public class ProductViewModel
     {
-        [Key]
-        public int Id { get; set; }
-        [Required(ErrorMessage = "name field is required")]
+       
+        public int ProductViewId { get; set; }
+     
         public String ProductName { get; set; }
-        [Required]
+      
         public String Product_Picture { get; set; }
-        [Required]
+       
         public String Product_Discription_Max { get; set; }
         public String Product_Discription_Min { get; set; }
-        [Required]
+       
         public decimal Product_Sale_Price { get; set; }
-        [Required]
+      
         public decimal Product_Purchase_Price { get; set; }
-        [NotMapped]
+       
         public int Product_Quantity { get; set; }
-        [Required]
+      
         public String Product_Status { get; set; }
         public decimal Product_Discount { get; set; }
-        [Required]
+       
         public DateTime Product_Add_Date { get; set; }
-        [Required]
+       
         public DateTime Product_Exp_Date { get; set; }
-        //foreign key SubCategry
-        [Display(Name = "SubCategory")]
-        [ForeignKey("SubCategory_FId")]
-        public int SubCategory_Fid { get; set; }
-        public virtual SubCategory SubCategorys { get; set; }
-        //foreign key Area
-        [Display(Name = "Area")]
-        [ForeignKey("Area_FId")]
-        public int Area_FId { get; set; }
-        public virtual Area Areas { get; set; }
+        
         // order detail with product
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public IList<OrderDetail> ProOrderDetails { get; set; }
 
     }
 }

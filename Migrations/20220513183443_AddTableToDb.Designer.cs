@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChainStoreSystem.Migrations
 {
     [DbContext(typeof(ChainStoreDbContext))]
-    [Migration("20220214222431_AddMigrationForOdDetailQuantityConverStringToInt")]
-    partial class AddMigrationForOdDetailQuantityConverStringToInt
+    [Migration("20220513183443_AddTableToDb")]
+    partial class AddTableToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.13")
+                .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ChainStoreSystem.Models.Account", b =>
@@ -217,15 +217,11 @@ namespace ChainStoreSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Product_Fid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductsId")
-                        .HasColumnType("int");
+                    b.Property<string>("Order_Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductsId");
 
                     b.ToTable("orders");
                 });
@@ -380,15 +376,6 @@ namespace ChainStoreSystem.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ChainStoreSystem.Models.Order", b =>
-                {
-                    b.HasOne("ChainStoreSystem.Models.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("ProductsId");
-
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("ChainStoreSystem.Models.OrderDetail", b =>
                 {
                     b.HasOne("ChainStoreSystem.Models.Area", "Area")
@@ -396,11 +383,11 @@ namespace ChainStoreSystem.Migrations
                         .HasForeignKey("AreaId");
 
                     b.HasOne("ChainStoreSystem.Models.Order", "Orders")
-                        .WithMany()
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrdersId");
 
                     b.HasOne("ChainStoreSystem.Models.Product", "Products")
-                        .WithMany()
+                        .WithMany("OrderDetails")
                         .HasForeignKey("ProductsId");
 
                     b.Navigation("Area");
@@ -432,6 +419,16 @@ namespace ChainStoreSystem.Migrations
                         .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ChainStoreSystem.Models.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("ChainStoreSystem.Models.Product", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }

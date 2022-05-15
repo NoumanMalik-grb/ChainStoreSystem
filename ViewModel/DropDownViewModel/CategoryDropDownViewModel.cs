@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace ChainStoreSystem.ViewModel.DropDownViewModel
 {
     public class CategoryDropDownViewModel
-    {        
-        public  int Id { get; set; }
-        [Required]
+    {
+        public int Id { get; set; }
+
         public String SubCategoryName { get; set; }
-        [Required]
-        public String SubCategoryStatus { get; set; }       
+
+        public String SubCategoryStatus { get; set; }
         public int CategoryId { get; set; }
-        
+
     }
 }

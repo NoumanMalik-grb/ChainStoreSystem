@@ -9,8 +9,7 @@
     <link href="~/Admin/assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <link href="~/Admin/dist/css/style.min.css" rel="stylesheet">
     <link href="~/Admin/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
-    <!--cdn for invoice-->
-    
+
 </head>
 <body>
     <div class="preloader">
@@ -40,18 +39,42 @@
                                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
                         </li>
 
-                        <li class="nav-item search-box">
-                            <a class="nav-link waves-effect waves-dark"
-                               href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>
-                            </form>
+
+                    </ul>
+                    <ul class="navbar-nav float-end">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/Admin/g.jpeg" alt="user" class="rounded-circle" height="50" width="50">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-user me-1 ms-1"></i>
+                                    My Profile
+                                </a>
+
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-settings me-1 ms-1"></i> Account Setting
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="fa fa-power-off me-1 ms-1"></i> Logout
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <div class="ps-4 p-10">
+                                    <a href="javascript:void(0)"
+                                       class="btn btn-sm btn-success btn-rounded text-white">View Profile</a>
+                                </div>
+                            </ul>
                         </li>
+
                     </ul>
                 </div>
             </nav>
         </header>
-        <aside class="left-sidebar col-3" data-sidebarbg="skin5">
+        <aside class="left-sidebar" data-sidebarbg="skin5">
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="pt-4">
@@ -85,6 +108,7 @@
                                 <i class="mdi mdi-blur-linear"></i><span class="hide-menu">DamagedProduct</span>
                             </a>
                         </li>
+
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark"
                                href="javascript:void(0)" aria-expanded="false">
@@ -133,6 +157,7 @@
                                         </span>
                                     </a>
                                 </li>
+
                                 <li class="sidebar-item">
                                     <a asp-controller="StoreReport" asp-action="HighselingArea" class="sidebar-link">
                                         <i class="fas fa-arrow-circle-up"></i><span class="hide-menu">
@@ -150,17 +175,41 @@
                             </ul>
 
                         </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)" aria-expanded="false">
+                                <i class="fas fa-folder-open"></i><span class="hide-menu">Catrts</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+
+                                <li class="sidebar-item">
+                                    <a asp-controller="DataChart" asp-action="LineChart" class="sidebar-link">
+                                        <i class="fas fa-magic"></i><span class="hide-menu">
+                                            LineChart
+                                        </span>
+                                    </a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+
                         <li class="sidebar-item">
                             <a asp-controller="Areas" asp-action="Index" class="sidebar-link waves-effect waves-dark sidebar-link"
                                aria-expanded="false">
                                 <i class="fas fa-chart-area"></i><span class="hide-menu">Area</span>
                             </a>
                         </li>
+
+
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark"
                                href="javascript:void(0)" aria-expanded="false">
                                 <i class="mdi mdi-receipt"></i><span class="hide-menu">Setting</span>
                             </a>
+
+
+
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a asp-controller="CompanyDetails" asp-action="Index" class="sidebar-link">
@@ -193,23 +242,34 @@
             </footer>
         </div>
     </div>
+
     <script src="~/Admin/assets/libs/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap tether Core JavaScript -->
     <script src="~/Admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="~/Admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="~/Admin/assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
     <script src="~/Admin/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
     <script src="~/Admin/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
     <script src="~/Admin/dist/js/custom.min.js"></script>
-    <script src="~/Admin/assets/libs/flot/excanvas.js"></script>
+    <!-- this page js -->
+    <script src="~/Admin/assets/libs/chart/matrix.interface.js"></script>
+    <script src="~/Admin/assets/libs/chart/excanvas.min.js"></script>
     <script src="~/Admin/assets/libs/flot/jquery.flot.js"></script>
     <script src="~/Admin/assets/libs/flot/jquery.flot.pie.js"></script>
     <script src="~/Admin/assets/libs/flot/jquery.flot.time.js"></script>
     <script src="~/Admin/assets/libs/flot/jquery.flot.stack.js"></script>
     <script src="~/Admin/assets/libs/flot/jquery.flot.crosshair.js"></script>
+    <script src="~/Admin/assets/libs/chart/jquery.peity.min.js"></script>
+    <script src="~/Admin/assets/libs/chart/matrix.charts.js"></script>
+    <script src="~/Admin/assets/libs/chart/jquery.flot.pie.min.js"></script>
     <script src="~/Admin/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="~/Admin/assets/libs/chart/turning-series.js"></script>
     <script src="~/Admin/dist/js/pages/chart/chart-page-init.js"></script>
-    <!--for bootstrap-->
-   
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -9,8 +9,6 @@ namespace ChainStoreSystem.ViewModel.ProductViewModel
 {
     public class UploadProductImageViewModel
     {
-        [Required]
-        [Display(Name ="Image")]
         public IFormFile Product_Picture { get; set; }
     }
 }
