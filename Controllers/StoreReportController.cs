@@ -254,9 +254,23 @@ namespace ChainStoreSystem.Controllers
                     Select(n => n.Order_FId).ToList();
             }
 
+            }
+            var od = _context.orderDetails.Select(a => a.Order_FId).ToList();
+            if (salerep.SubCategory != null)
+            {
+                var pro = _context.products.Where(a => a.SubCategory_Fid == salerep.SubCategory).Select
+                    (a => a.Id).ToList();
+                if (salerep.Product != null)
+                {
+                    pro = _context.products.Where(a => a.Id == salerep.Product).Select(a => a.Id).ToList();
+                }
+                od = _context.orderDetails.Where(n => pro.Contains(n.Product_FId)).
+                    Select(n => n.Order_FId).ToList();
+            }
             var malik = _context.orders.Where(x => x.Order_Type == "sale" & x.Order_DateTime >= salerep.DateFrom &
             x.Order_DateTime <= salerep.DateTo & od.Contains(x.Id)).OrderByDescending(x => x.Id).ToList();
             return View(malik);
+>>>>>>>>> Temporary merge branch 2
         }
     }
 }
